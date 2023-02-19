@@ -1,7 +1,7 @@
 import React from 'react'
 import { AcademicCapIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroicons/react/24/outline'
 // import { AcademicCapIcon, } from '@heroicons/react/24/solid'
-
+import Image from "next/image";
 
 // Notes
 // 1. Set things up
@@ -24,9 +24,18 @@ import { AcademicCapIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroic
 
 function page() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen px-2 text-white'>
-
-        <h1 className='text-5xl font-bold mb-10'>ChatTime:)</h1>
+    <div className='flex flex-col items-center justify-center h-screen text-white'>
+        <div className='flex items-center p-5'>
+            <Image 
+                // src="https://links.papareact.com/2i6"
+                src="https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png"
+                width={100}
+                height={100}
+                alt="logo"
+            />    
+            <h1 className='text-2xl font-bold'>ChatTime:)</h1>
+        </div>
+        
         <div>
 
           <div className='space-y-4 text-center lg:space-y-0 lg:flex lg:space-x-6'>
