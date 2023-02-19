@@ -18,6 +18,9 @@ import { AcademicCapIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroic
 //  -- Components: Side bar + Main ChatPage
 // 4. Set up @layer in styles/global.css
 // 5. Create a components folder
+// 6. Go install nextauth
+//  -- sudo npm install next-auth
+//  -- Go to Firebase --> Build / Authentication --> Copy your web client ID and secret
 
 function page() {
   return (
