@@ -21,6 +21,8 @@ import Image from "next/image";
 // 6. Go install nextauth
 //  -- sudo npm install next-auth
 //  -- Go to Firebase --> Build / Authentication --> Copy your web client ID and secret
+// 7. Create firebase.ts file
+//  -- Install firebase: sudo npm install firebase
 
 function page() {
   return (
