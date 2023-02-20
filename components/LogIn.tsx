@@ -14,7 +14,7 @@ function LogIn() {
             height={300}
             alt="logo"
         />
-        <button onClick={signIn} className='text-white font-bold text-3xl animate-pulse p-2'>
+        <button onClick={() => signIn()} className='text-white font-bold text-3xl animate-pulse p-2'>
             Sign In to Smart Lingo
         </button>
     </div>
