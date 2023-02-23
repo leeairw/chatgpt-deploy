@@ -2,7 +2,8 @@
 
 import { useSession, signOut } from 'next-auth/react'
 import React from 'react'
-import NewTask from './NewTask'
+import NewChat from './NewChat'
+import VocabGrammCheck from './VocabGrammCheck'
 
 function SideBar() {
   const { data: session } = useSession()
@@ -13,8 +14,11 @@ function SideBar() {
         <div className='flex-1'>
             <div>
 
-                {/* NewTask */}
-                <NewTask/>
+                {/* NewChat */}
+                <NewChat/>
+
+                {/* VocabGrammCheck */}
+                <VocabGrammCheck/>
 
                 {/* ModelSelection */}
 

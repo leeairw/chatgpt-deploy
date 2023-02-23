@@ -23,6 +23,8 @@ import Image from "next/image";
 //  -- Go to Firebase --> Build / Authentication --> Copy your web client ID and secret
 // 7. Create firebase.ts file
 //  -- Install firebase: sudo npm install firebase
+// 8. Install react firebase hooks
+//  -- https://www.npmjs.com/package/react-firebase-hooks
 
 function page() {
   return (
