@@ -26,7 +26,7 @@ function VocabGrammCheck() {
   return (
     <div onClick={createVocabGrammCheck} className='border-gray-700 border chatRow'>
         <PlusIcon className='h-4 w-4'/>
-        <p> Vocab & Grammar Check</p>
+        <p className='truncate'>Check Vocab & Grammar</p>
     </div>
   );
 }
