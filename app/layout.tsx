@@ -23,15 +23,15 @@ export default async function RootLayout({
             <LogIn />
           ) : (
             <div className='flex'>
-            {/* Sidebar */}
-            <div className='bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]'>
-              <SideBar />
-            </div>
+              {/* Sidebar */}
+              <div className='bg-[#202123] max-w-xs h-screen overflow-y-auto md:min-w-[20rem]'>
+                <SideBar />
+              </div>
 
-            {/* ClientProvider - Notification */}
+              {/* ClientProvider - Notification */}
 
-            {/* Main Conversation Page */}
-            <div className='bg-gradient-to-br from-purple-300 to-yellow-300 flex-1'>{children}</div>
+              {/* Main Conversation Page */}
+              <div className='bg-gradient-to-br from-purple-300 to-yellow-300 flex-1'>{children}</div>
           </div> 
           )} 
         </SessionProvider>     
