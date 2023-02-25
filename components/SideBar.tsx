@@ -4,17 +4,23 @@ import { useSession, signOut } from 'next-auth/react'
 import React from 'react'
 import NewChat from './NewChat'
 import VocabGrammCheck from './VocabGrammCheck'
-import { collection } from "firebase/firestore"
+import { collection, orderBy, query } from "firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { db } from '../firebase'
 import ChatRow from './ChatRow'
 
 function SideBar() {
   const { data: session } = useSession()
-//   {session && console.log('Session available: ', session.user?.image)}
+
+// sort the chats in descending orders, and the newly created chat will rank top
   const [chats, loading, error] = useCollection(
-    session && collection(db, "users", session.user?.email!, "chats")
+    session && 
+    query(
+        collection(db, "users", session.user?.email!, "chats"),
+        orderBy("createdAt", "desc")
+    )
   );
+
   console.log("Chats Collection: ", chats)
   return (
     <div className='p-2 flex flex-col h-screen'>
