@@ -40,7 +40,7 @@ function page() {
             <h1 className='text-2xl font-bold'>ChatTime:)</h1>
         </div>
         
-        <div>
+        <div className='hidden md:block'>
 
           <div className='space-y-4 text-center lg:space-y-0 lg:flex lg:space-x-6'>
 

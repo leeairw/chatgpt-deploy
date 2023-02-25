@@ -1,7 +1,7 @@
 'use client'
 
 import { ChatBubbleLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { collection, orderBy, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, orderBy, query } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -29,6 +29,15 @@ function ChatRow({id}: Props) {
     if (!pathname) return;
     setActive(pathname.includes(id));
     }, [pathname]);
+
+  // delte chat
+  const removeChat = async() => {
+    await deleteDoc(
+        doc(db, "users", session?.user?.email!, "chats", id)
+    )
+
+    router.push(`/`);
+  }
   
   
   return (
@@ -39,7 +48,7 @@ function ChatRow({id}: Props) {
                 {/* Pull the last bit of that chat, or just say 'New Chat' */}
                 {messages?.docs[messages?.docs.length - 1]?.data().text || "New Chat"}
             </p>
-            <TrashIcon className='h-5 w-5 text-gray-700 hover:text-red-700'/>
+            <TrashIcon onClick={removeChat} className='h-5 w-5 text-gray-700 hover:text-red-700'/>
         </div>
     </Link>
     
