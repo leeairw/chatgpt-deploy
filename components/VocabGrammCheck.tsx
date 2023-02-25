@@ -20,11 +20,11 @@ function VocabGrammCheck() {
         }
     );
 
-    router.push(`/check/${doc.id}`);
+    // router.push(`/check/${doc.id}`);
   };
 
   return (
-    <div onClick={createVocabGrammCheck} className='border-gray-700 border chatRow'>
+    <div onClick={createVocabGrammCheck} className='border-gray-700 border pageButton'>
         <PlusIcon className='h-4 w-4'/>
         <p className='truncate'>Check Vocab & Grammar</p>
     </div>

@@ -30,8 +30,6 @@ function SideBar() {
                 {/* NewChat */}
                 <NewChat/>
 
-                {/* VocabGrammCheck */}
-                <VocabGrammCheck/>
 
                 {/* ModelSelection */}
 
