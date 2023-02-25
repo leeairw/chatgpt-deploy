@@ -1,11 +1,8 @@
 import React from 'react'
 import VocabGrammCheck from '../../../components/VocabGrammCheck'
 
-type Props = {
-    id:string;
-};
 
-function ChatPage({id}: Props) {
+function ChatPage() {
   return (
     <div className='flex'>
         <div className='p-5'>
