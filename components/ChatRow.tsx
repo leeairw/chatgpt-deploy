@@ -5,6 +5,7 @@ import { collection, deleteDoc, doc, orderBy, query } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import path from 'path';
 import React, { useEffect, useState } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
@@ -30,13 +31,12 @@ function ChatRow({id}: Props) {
     setActive(pathname.includes(id));
     }, [pathname]);
 
-  // delte chat
+  // delete chat
   const removeChat = async() => {
     await deleteDoc(
         doc(db, "users", session?.user?.email!, "chats", id)
     )
-
-    router.push(`/`);
+    router.push(`/`); //push to origin url after deleting a chat
   }
   
   

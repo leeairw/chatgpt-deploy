@@ -8,7 +8,11 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 import { db } from '../firebase';
 
-function VocabGrammCheck() {
+type Props = {
+    chatId: string;
+}
+
+function VocabGrammCheck({chatId}: Props) {
   const router = useRouter();
   const { data:session } = useSession();
 

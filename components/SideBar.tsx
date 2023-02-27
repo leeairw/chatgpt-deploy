@@ -30,7 +30,6 @@ function SideBar() {
                 {/* NewChat */}
                 <NewChat/>
 
-
                 {/* ModelSelection */}
 
                 {/* Map through the ChatRows */}
