@@ -18,5 +18,17 @@
         justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer
         text-gray-800 hover:text-gray-300 transition-all duration-200 ease-out
     }
+
+    .submitButton {
+        @apply h-5 w-5 -rotate-45 flex items-center
+        justify-center space-x-2 cursor-pointer hover:scale-125
+        text-gray-800 hover:text-gray-800 transition-all duration-200 ease-out
+        font-bold
+    }
+
+    .textInput {
+        @apply bg-transparent focus:outline-none flex-1 text-lg
+        disabled:cursor-not-allowed disabled:text-gray-300
+    }
 }
  
