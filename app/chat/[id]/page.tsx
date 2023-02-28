@@ -4,10 +4,13 @@ import ChatInput from '../../../components/ChatInput'
 import VocabGrammCheck from '../../../components/VocabGrammCheck'
 
 type Props = {
+  params:{
     id:string;
+  }
+    
 };
 
-function ChatPage({id}: Props) {
+function ChatPage({params: {id}}: Props) {
   
   console.log("Props on ChatPage with ID", id);
   return (

@@ -14,9 +14,10 @@ function ChatInput({chatId}: Props) {
   const session = useSession();
 
   const sendInput = async(e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
   };
-  
+
   return (
     <div className='bg-transparent text-gray-400 rounded-lg text-sm focus:outline-none'>
         {/* Submit text input */}
