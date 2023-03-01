@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import queryGPT from '../../lib/queryApi'
 
 type Data = {
-  name: string
+  answer: string;
 }
 
 export default async function handler(
@@ -23,12 +23,12 @@ export default async function handler(
   }
 
   // ChatGPT Query
-  const response = await queryGPT(prompt, chatId, model)
+  const response = await queryGPT(prompt, chatId, model);
 
   const message: Message = {
     text: response || "Smart Lingo was unable to respond to that :(",
     
   }
 
-  res.status(200).json({ name: 'Sean' });
+//   res.status(200).json({ name: 'Sean' });
 }
