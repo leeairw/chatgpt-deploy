@@ -42,8 +42,7 @@ function ChatInput({chatId}: Props) {
     // Add the new message to firebase
     await addDoc(
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
-        message
-        
+        message 
     )
 
     // Toast notification to say Loading

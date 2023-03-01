@@ -15,7 +15,7 @@ function ChatPage({params: {id}}: Props) {
   
   console.log("Props on ChatPage with ID", id);
   return (
-    <div className='flex flex-col p-5 space-y-2 h-screen '>
+    <div className='flex flex-col p-5 space-y-2 h-screen'>
             <ChatSpace chatId={id}/>
             <ChatInput chatId={id}/>
             <div className='flex flex-row space-x-2'>

@@ -34,7 +34,9 @@ import Image from "next/image";
 //  -- Download the file and then pull it to our env
 //  -- https://www.textfixer.com/tools/remove-line-breaks.php
 //  -- Use the website above to remove line breaks and paste it to .env.local as a param called FIREBASE_SERVICE_ACCOUNT_KEY
-
+// 13. select models: use reach select and create an api called getEngine.ts
+// 14. Do useSWR from vercel: swr.vercel.app; it's a react hook for data fetching
+//  -- sudo npm install swr
 
 function page() {
   return (
