@@ -22,7 +22,7 @@ function PastMessage({message}:Props) {
 
     return (
       
-          <div className={`text-grey py-5 space-x-5 justify-center ${isSmartLingo && "bg-gray-200/50 rounded-lg"}`}>   
+          <div className={`text-grey py-5 space-x-5 ${isSmartLingo && "bg-gray-200/50 rounded-lg"}`}>   
             <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                 <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>
                 <p className='text-gray-600 text-sm '>{message.text}</p>

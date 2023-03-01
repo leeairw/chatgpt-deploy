@@ -39,6 +39,12 @@ function SideBar() {
                   <ModelSelection />
                 </div>
 
+                {loading && (
+                  <div className='animate-pulse text-center text-white'>
+                    <p>Loading Chats...</p>
+                  </div>
+                )}
+
                 {/* Map through the ChatRows */}
                 {chats?.docs.map(chat => (
                     <div className='pt-1'>
