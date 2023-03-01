@@ -43,6 +43,7 @@ function ChatInput({chatId}: Props) {
     await addDoc(
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
         message
+        
     )
 
     // Toast notification to say Loading
