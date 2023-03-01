@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 import '../styles/globals.css';
 import { authOptions } from '../pages/api/auth/[...nextauth]';
 import LogIn from '../components/LogIn';
+import ClientProvider from '../components/ClientProvider';
 
 export default async function RootLayout({
   children,
@@ -29,6 +30,7 @@ export default async function RootLayout({
               </div>
 
               {/* ClientProvider - Notification */}
+              <ClientProvider />
 
               {/* Main Conversation Page */}
               <div className='bg-gradient-to-br from-purple-300 to-yellow-300 flex-1'>{children}</div>

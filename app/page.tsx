@@ -25,6 +25,16 @@ import Image from "next/image";
 //  -- Install firebase: sudo npm install firebase
 // 8. Install react firebase hooks
 //  -- https://www.npmjs.com/package/react-firebase-hooks
+// 9. Create a typings.d.ts to define Message interface data types
+// 10. npm add react-hot-toast
+// 11. sudo npm install openai
+// 12. Create firebaseAdmin.ts
+//  -- sudo npm install firebase-admin
+//  -- firebase > Project Oveview > Project settings > Service accounts > Firebase Admin SDK > Generate new private key
+//  -- Download the file and then pull it to our env
+//  -- https://www.textfixer.com/tools/remove-line-breaks.php
+//  -- Use the website above to remove line breaks and paste it to .env.local as a param called FIREBASE_SERVICE_ACCOUNT_KEY
+
 
 function page() {
   return (

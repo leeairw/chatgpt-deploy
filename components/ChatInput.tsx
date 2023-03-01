@@ -1,8 +1,11 @@
 'use client'
 
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import React, { FormEvent, useState } from 'react'
+import { toast } from 'react-hot-toast';
+import { db } from '../firebase';
 
 type Props = {
     chatId: string;
@@ -11,10 +14,55 @@ type Props = {
 function ChatInput({chatId}: Props) {
 
   const [prompt, setPrompt] = useState("");
-  const session = useSession();
+  const {data:session} = useSession();
+
+  // TODO: useSWR to get model
+  const model = 'text-davinci-003';
 
   const sendInput = async(e: FormEvent<HTMLFormElement>) => {
+    // set up and return if null
     e.preventDefault()
+    if (!prompt) return;
+
+    // trim the prompt
+    const input = prompt.trim();
+    setPrompt("");
+
+    // Define the Message input format
+    const message: Message = {
+        text: input,
+        createdAt: serverTimestamp(),
+        user: {
+            _id: session?.user?.email!,
+            name: session?.user?.name!,
+            avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
+        }
+    }
+
+    // Add the new message to firebase
+    await addDoc(
+        collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
+        message
+    )
+
+    // Toast notification to say Loading
+    const notification = toast.loading('Smart Lingo is thinking...')
+
+    // fetch and send success notification
+    await fetch('/api/askQuestion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            prompt: input, chatId, model, session
+        }),
+    }).then(() => {
+        // Toast notificaion to say successful!
+        toast.success("Smart Lingo has responded!", {
+            id: notification,
+        })
+    })
 
   };
 

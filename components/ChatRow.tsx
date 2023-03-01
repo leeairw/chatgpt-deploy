@@ -46,7 +46,7 @@ function ChatRow({id}: Props) {
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
             <p className=' hidden truncate md:block md:inline-text md:text-white justify-center text-center'>
                 {/* Pull the last bit of that chat, or just say 'New Chat' */}
-                {messages?.docs[messages?.docs.length - 1]?.data().text || "New Chat"}
+                {messages?.docs[messages?.docs.length - 1]?.data().text || "New Student"}
             </p>
             <TrashIcon onClick={removeChat} className='h-5 w-5 text-gray-700 hover:text-red-700'/>
         </div>
