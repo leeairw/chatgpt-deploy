@@ -1,7 +1,7 @@
 import React from 'react'
-import Chat from '../../../components/Chat'
 import ChatInput from '../../../components/ChatInput'
 import VocabGrammCheck from '../../../components/VocabGrammCheck'
+import ChatSpace from '../../../components/ChatSpace';
 
 type Props = {
   params:{
@@ -15,7 +15,7 @@ function ChatPage({params: {id}}: Props) {
   console.log("Props on ChatPage with ID", id);
   return (
     <div className='flex flex-col p-5 space-y-2 h-screen overflow-hidden'>
-            <Chat chatId={id}/>
+            <ChatSpace chatId={id}/>
             <ChatInput chatId={id}/>
             <VocabGrammCheck chatId={id}/>
         
