@@ -50,10 +50,10 @@ function ChatInput({chatId}: Props) {
     const notification = toast.loading('Smart Lingo is thinking...')
 
     // fetch and send success notification
-    await fetch('/api/askQuestion', {
+    await fetch('/api/askQuestions', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
             prompt: input, chatId, model, session

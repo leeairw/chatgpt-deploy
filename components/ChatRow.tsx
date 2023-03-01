@@ -42,9 +42,9 @@ function ChatRow({id}: Props) {
   
   return (
     <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${active && "bg-gray-700/50"}`}>
-        <div className='flex space-x-1  '>   
+        <div className='flex space-x-1 md:text-truncate pl-5'>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
-            <p className=' hidden truncate md:block md:inline-text md:text-white justify-center text-center'>
+            <p className=' hidden md:block md:inline-text md:text-white md:justify-center md:text-center'>
                 {/* Pull the last bit of that chat, or just say 'New Chat' */}
                 {messages?.docs[messages?.docs.length - 1]?.data().text || "New Student"}
             </p>
