@@ -42,11 +42,11 @@ function ChatRow({id}: Props) {
   
   return (
     <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${active && "bg-gray-700/50"}`}>
-        <div className='flex space-x-1 md:text-truncate pl-5'>   
+        <div className='flex space-x-1 '>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
-            <p className=' hidden md:block md:inline-text md:text-white md:justify-center md:text-center'>
-                {/* Pull the last bit of that chat, or just say 'New Chat' */}
-                {messages?.docs[messages?.docs.length - 1]?.data().text || "New Student"}
+            <p className=' hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center'>
+                {/* Pull the first 5 words of the text, or just say 'New Chat' */}
+                {messages?.docs[messages?.docs.length - 1]?.data().text.split(' ').slice(0, 5).join(" ") || "New Student"}
             </p>
             <TrashIcon onClick={removeChat} className='h-5 w-5 text-gray-700 hover:text-red-700'/>
         </div>

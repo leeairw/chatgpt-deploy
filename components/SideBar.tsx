@@ -24,8 +24,8 @@ function SideBar() {
 
   
 
-  console.log("Chats Collection: ", chats)
-  console.log(chats?.docs.map(chat => (chat.id)))
+  // console.log("Chats Collection: ", chats)
+  // console.log(chats?.docs.map(chat => (chat.id)))
   return (
     <div className='p-2 flex flex-col h-screen min-w-[5rem] overflow-y-scroll overflow-x-hidden'>
         <div className='flex-1'>

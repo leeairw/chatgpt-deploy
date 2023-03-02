@@ -16,9 +16,9 @@ type Props = {
 function PastMessage({message}:Props) {
 
     const { data: session } = useSession();
-    console.log('individual past message: ', message)
+    // console.log('individual past message: ', message)
     const isSmartLingo = message.user.name === "SmartLingo";
-    console.log("is this chat from SmartLingo? ", isSmartLingo)
+    // console.log("is this chat from SmartLingo? ", isSmartLingo)
 
     return (
       

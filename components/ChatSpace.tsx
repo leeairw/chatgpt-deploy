@@ -25,8 +25,8 @@ function ChatSpace({chatId}: Props) {
     )
   );
   
-  console.log('ChatSpace Messages: ', messages)
-  console.log('ChatSpace Message Mapped: ', messages?.docs.map(message => (message.id)))
+  // console.log('ChatSpace Messages: ', messages)
+  // console.log('ChatSpace Message Mapped: ', messages?.docs.map(message => (message.id)))
 
   return (
     <div className='flex-1 border-gray-700 overflow-y-scroll overflow-x-hidden'>
