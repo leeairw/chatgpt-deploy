@@ -57,7 +57,9 @@ function VocabGrammCheck({chatId}: Props) {
   // Check the array
   // 1. formulate the question
     // fetch and send success notification
-    
+  // 2. send the question and the array context to AI, with user's name being "ButtonRequest"
+    // Add the new message to firebase
+  // 3. retrieve the answer from AI 
 
     const sendButtonRequest = async() => {
 
@@ -66,6 +68,8 @@ function VocabGrammCheck({chatId}: Props) {
             prompt_prompt_VocabGrammCheck_formatted 
         )
 
+        // Toast notification to say Loading
+        const notification = toast.loading('Smart Lingo is thinking...')
         await fetch('/api/askQuestions', {
             method: 'POST',
             headers: {
@@ -83,18 +87,7 @@ function VocabGrammCheck({chatId}: Props) {
 
     }
     
-  // 2. send the question and the array context to AI, with user's name being "ButtonRequest"
-  // Add the new message to firebase
-  
-  // 3. retrieve the answer from AI 
-//   const Summarize = async() => {
-//     const doc = await addDoc(
-//         collection(db, 'users', session?.user?.email!, 'summary'), {
-//             userId: session?.user?.email!,
-//             createdAt:serverTimestamp()
-//         }
-//     );
-//   };
+
 
   return (
     <div onClick={sendButtonRequest} className='border-gray-700 border pageButton'>

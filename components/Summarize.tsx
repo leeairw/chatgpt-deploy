@@ -57,6 +57,9 @@ function Summarize({chatId}: Props) {
   // Summarize the array
   // 1. formulate the question
     // fetch and send success notification
+  // 2. send the question and the array context to AI, with user's name being "ButtonRequest"
+    // Add the new message to firebase
+  // 3. retrieve the answer from AI 
     
 
     const sendButtonRequest = async() => {
@@ -86,18 +89,8 @@ function Summarize({chatId}: Props) {
 
     };
     
-  // 2. send the question and the array context to AI, with user's name being "ButtonRequest"
-  // Add the new message to firebase
-  
-  // 3. retrieve the answer from AI 
-//   const Summarize = async() => {
-//     const doc = await addDoc(
-//         collection(db, 'users', session?.user?.email!, 'summary'), {
-//             userId: session?.user?.email!,
-//             createdAt:serverTimestamp()
-//         }
-//     );
-//   };
+
+
 
   return (
     <div onClick={sendButtonRequest} className='border-gray-700 border pageButton'>
