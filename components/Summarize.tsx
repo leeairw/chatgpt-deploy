@@ -5,7 +5,7 @@ import { addDoc, collection, orderBy, query, serverTimestamp } from 'firebase/fi
 import { useSession } from 'next-auth/react';
 // import { useRouter } from 'next/router' -- DO NOT USE
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { FormEvent } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import useSWR from "swr";
@@ -66,22 +66,25 @@ function Summarize({chatId}: Props) {
             prompt_summarize_formatted 
         )
 
+
+        // Toast notification to say Loading
+        const notification = toast.loading('Smart Lingo is thinking...')
         await fetch('/api/askQuestions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-                prompt: prompt_summarize, chatId, model, session
+                prompt: prompt_summarize_formatted, chatId, model, session
             }),
         }).then(() => {
             // Toast notificaion to say successful!
             toast.success("Smart Lingo has responded!", {
-                id: Notification,
+                id: notification,
             })
         })
 
-    }
+    };
     
   // 2. send the question and the array context to AI, with user's name being "ButtonRequest"
   // Add the new message to firebase

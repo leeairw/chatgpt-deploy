@@ -37,6 +37,8 @@ import Image from "next/image";
 // 13. select models: sudo npm install react-select and create an api called getEngine.ts
 // 14. Do useSWR from vercel: swr.vercel.app; it's a react hook for data fetching
 //  -- sudo npm install swr
+// 15. Use Vercel CLI to deploy: sudo npm install -g vercel
+//  -- vercel
 
 function page() {
   return (
