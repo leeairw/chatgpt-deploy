@@ -81,7 +81,7 @@ function VocabGrammCheck({chatId}: Props) {
         }).then(() => {
             // Toast notificaion to say successful!
             toast.success("Smart Lingo has responded!", {
-                id: Notification,
+                id: notification,
             })
         })
 
