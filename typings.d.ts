@@ -4,6 +4,7 @@ interface Message {
     user: {
         _id: string;
         name: string;
+        type: string;
         avatar: string;
     };
 };

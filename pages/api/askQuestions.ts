@@ -13,8 +13,11 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { prompt, chatId, model, session } = req.body
+
+  const prompt_text = prompt.text
+
   
-  if (!prompt) {
+  if (!prompt_text) {
     res.status(400).json({ answer: "Please input something :)"});
     return;
   }
@@ -25,7 +28,7 @@ export default async function handler(
   }
 
   // ChatGPT Query: Talk to ChatGPT
-  const response = await queryGPT(prompt, chatId, model);
+  const response = await queryGPT(prompt_text, chatId, model);
 
   const message: Message = {
     text: response || "Smart Lingo was unable to respond to that :(",
@@ -33,7 +36,8 @@ export default async function handler(
     createdAt: admin.firestore.Timestamp.now(),
     user: {
         _id: 'SmartLingo',
-        name: 'SmartLingo',
+        name: prompt.user.name,
+        type: prompt.user.type + "Response",
         avatar: "https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png",
     }
   }

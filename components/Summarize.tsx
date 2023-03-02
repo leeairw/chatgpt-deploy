@@ -34,9 +34,10 @@ function Summarize({chatId}: Props) {
         )
     );
     messages?.docs.forEach((message) => (
+        (message.data().user.name === session?.user?.name || message.data().user.name ==='SmartLingo') && (
         pastMessages.push(message.data().user.name + ' said: " ' + message.data().text.replace(/(\r\n|\n|\r)/gm,"") + '"')
         // console.log(message.data().text)
-    ));
+    )));
     console.log("Log the messages Array: ", pastMessages);
     
 
@@ -49,12 +50,13 @@ function Summarize({chatId}: Props) {
         createdAt: serverTimestamp(),
         user: {
             _id: session?.user?.email!,
-            name: session?.user?.name!,
+            name: "Summary", 
+            type: "SmartButtonRequest",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }
 
-    console.log("Log the messages formatted: ", prompt_summarize_formatted.text);
+    console.log("Log the messages formatted: ", prompt_summarize_formatted);
 
   
   // Summarize the array
@@ -80,7 +82,7 @@ function Summarize({chatId}: Props) {
                 'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-                prompt: prompt_summarize_formatted.text, chatId, model, session
+                prompt: prompt_summarize_formatted, chatId, model, session
             }),
         }).then(() => {
             // Toast notificaion to say successful!

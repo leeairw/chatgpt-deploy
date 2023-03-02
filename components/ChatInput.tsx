@@ -43,6 +43,7 @@ function ChatInput({chatId}: Props) {
         user: {
             _id: session?.user?.email!,
             name: session?.user?.name!,
+            type: "UserRequest",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }
@@ -63,7 +64,7 @@ function ChatInput({chatId}: Props) {
             'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
-            prompt: input, chatId, model, session
+            prompt: message, chatId, model, session
         }),
     }).then(() => {
         // Toast notificaion to say successful!

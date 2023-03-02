@@ -19,7 +19,9 @@ function ChatRow({id}: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
-  const [active, setActive] = useState(false);
+  const [smartLingoActive, setSmartLingoActive] = useState(false);
+  
+
 
   const [messages] = useCollection(
         collection(db, "users", session?.user?.email!, "chats", id, "messages")
@@ -28,7 +30,7 @@ function ChatRow({id}: Props) {
   // dynamically check if the pathname has an id - chat being clicked on
   useEffect(() => {
     if (!pathname) return;
-    setActive(pathname.includes(id));
+    setSmartLingoActive(pathname.includes(id));
     }, [pathname]);
 
   // delete chat
@@ -41,7 +43,7 @@ function ChatRow({id}: Props) {
   
   
   return (
-    <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${active && "bg-gray-700/50"}`}>
+    <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${smartLingoActive && "bg-gray-700/50"}`}>
         <div className='flex space-x-1 '>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
             <p className=' hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center'>

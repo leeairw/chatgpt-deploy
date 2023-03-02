@@ -42,11 +42,14 @@ function ChatSpace({chatId}: Props) {
         )}
 
         {/* List all past messages under one chatId */}
-        {messages?.docs.map(message => (
-          <div>
+        {messages?.docs.map(message => ( message.data().user.type != "SmartButtonRequest" && (
+          <div className="mt-2" >
             <PastMessage key={message.id} messageId={message.id} 
             chatId={chatId} message={message.data()} />
           </div>
+
+        )
+          
         ))}
     </div>
   )
