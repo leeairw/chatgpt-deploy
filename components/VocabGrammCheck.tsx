@@ -18,8 +18,8 @@ type Props = {
 function VocabGrammCheck({chatId}: Props) {
   const router = useRouter();
   const { data:session } = useSession();
-  const { data: model, mutate: setModel } = useSWR('model', {
-    fallbackData: 'text-davinci-003'
+  const { data: model} = useSWR('model', {
+    fallbackData: 'text-davinci-001'
   });
 
   // Query all messages under this one chatId (imagine this is all history of one student)
@@ -76,7 +76,7 @@ function VocabGrammCheck({chatId}: Props) {
                 'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-                prompt: prompt_prompt_VocabGrammCheck_formatted, chatId, model, session
+                prompt: prompt_prompt_VocabGrammCheck_formatted.text, chatId, model, session
             }),
         }).then(() => {
             // Toast notificaion to say successful!
@@ -84,7 +84,6 @@ function VocabGrammCheck({chatId}: Props) {
                 id: notification,
             })
         })
-
     }
     
 

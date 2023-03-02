@@ -19,7 +19,7 @@ function Summarize({chatId}: Props) {
   const router = useRouter();
   const { data:session } = useSession();
   const { data: model, mutate: setModel } = useSWR('model', {
-    fallbackData: 'text-davinci-001'
+    fallbackData: 'text-davinci-003'
   });
 
   // Query all messages under this one chatId (imagine this is all history of one student)
@@ -53,6 +53,9 @@ function Summarize({chatId}: Props) {
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }
+
+    console.log("Log the messages formatted: ", prompt_summarize_formatted.text);
+
   
   // Summarize the array
   // 1. formulate the question
@@ -69,7 +72,6 @@ function Summarize({chatId}: Props) {
             prompt_summarize_formatted 
         )
 
-
         // Toast notification to say Loading
         const notification = toast.loading('Smart Lingo is thinking...')
         await fetch('/api/askQuestions', {
@@ -78,7 +80,7 @@ function Summarize({chatId}: Props) {
                 'Content-Type': 'application/json', 
             },
             body: JSON.stringify({
-                prompt: prompt_summarize_formatted, chatId, model, session
+                prompt: prompt_summarize_formatted.text, chatId, model, session
             }),
         }).then(() => {
             // Toast notificaion to say successful!
