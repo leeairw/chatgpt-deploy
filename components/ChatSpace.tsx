@@ -44,7 +44,8 @@ function ChatSpace({chatId}: Props) {
         {/* List all past messages under one chatId */}
         {messages?.docs.map(message => (
           <div>
-            <PastMessage key={message.id} message={message.data()} />
+            <PastMessage key={message.id} messageId={message.id} 
+            chatId={chatId} message={message.data()} />
           </div>
         ))}
     </div>

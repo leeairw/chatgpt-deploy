@@ -48,7 +48,7 @@ function ChatRow({id}: Props) {
                 {/* Pull the first 5 words of the text, or just say 'New Chat' */}
                 {messages?.docs[messages?.docs.length - 1]?.data().text.split(' ').slice(0, 5).join(" ") || "New Student"}
             </p>
-            <TrashIcon onClick={removeChat} className='h-5 w-5 text-gray-700 hover:text-red-700'/>
+            <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
         </div>
     </Link>
     

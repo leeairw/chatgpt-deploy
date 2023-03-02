@@ -32,7 +32,8 @@ function ChatInput({chatId}: Props) {
     if (!prompt) return;
 
     // trim the prompt
-    const input = prompt.trim();
+    // const input = prompt.trim();
+    const input = prompt;
     setPrompt("");
 
     // Define the Message input format

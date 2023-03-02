@@ -3,7 +3,6 @@
 import { useSession, signOut } from 'next-auth/react'
 import React from 'react'
 import NewChat from './NewChat'
-import VocabGrammCheck from './VocabGrammCheck'
 import { collection, orderBy, query } from "firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { db } from '../firebase'
@@ -59,7 +58,7 @@ function SideBar() {
                 onClick={() => signOut()}
                 src={session.user?.image!}
                 alt="Profile Pic"
-                className='h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50'
+                className='shrink-0 h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50'
 
             />
         )}

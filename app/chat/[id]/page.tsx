@@ -3,6 +3,7 @@ import ChatInput from '../../../components/ChatInput'
 import VocabGrammCheck from '../../../components/VocabGrammCheck'
 import ChatSpace from '../../../components/ChatSpace';
 import Summarize from '../../../components/Summarize';
+import InspireMe from '../../../components/InspireMe';
 
 type Props = {
   params:{
@@ -21,6 +22,7 @@ function ChatPage({params: {id}}: Props) {
             <div className='flex flex-row space-x-2'>
               <Summarize chatId={id}/>
               <VocabGrammCheck chatId={id}/>
+              <InspireMe chatId={id} />
             </div>
         
         {/* <VocabGrammCheck key={id} id={id}/> */}
