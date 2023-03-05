@@ -72,7 +72,7 @@ function PastMessage({messageId, chatId, message}:Props) {
                 )}
 
                 {/* If not, let's just display the conversations */}
-                {isUserRequest && isUserRequestResponse && (
+                {!isSmartButtonResponse && !isInspireMeRequest && (
                     
                     <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                         <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>
