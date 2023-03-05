@@ -13,10 +13,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const { prompt, chatId, model, session } = req.body
-
   const prompt_text = prompt.text
 
-  
   if (!prompt_text) {
     res.status(400).json({ answer: "Please input something :)"});
     return;
@@ -29,6 +27,7 @@ export default async function handler(
 
   // ChatGPT Query: Talk to ChatGPT
   const response = await queryGPT(prompt_text, chatId, model);
+  console.log("Response from queryGPT: ", response)
 
   const message: Message = {
     text: response || "Smart Lingo was unable to respond to that :(",

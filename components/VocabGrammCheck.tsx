@@ -50,7 +50,7 @@ function VocabGrammCheck({chatId}: Props) {
 
     const prompt_VocabGrammCheck = 
       'Please find the grammar or vocabulary mistakes made in the following text, and list them in bullet points.' 
-      + 'After that, please also write down the correct answer right next to each mistake in the original text. \n\n'
+      // + 'After that, please also write down the correct answer right next to each mistake in the original text. \n\n'
       + '"' + pastMessages.toString() + '"'
     console.log("Log the messages String: ", prompt_VocabGrammCheck);
 

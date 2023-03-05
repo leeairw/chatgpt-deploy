@@ -22,6 +22,7 @@ function PastMessage({messageId, chatId, message}:Props) {
     const isUserRequestResponse = (message.user.type === "UserRequestResponse");
     const isSmartButtonRequest = (message.user.type === "SmartButtonRequest");
     const isSmartButtonResponse = (message.user.type === "SmartButtonRequestResponse")
+    const isInspireMeRequest = (message.user.type === "InspireMeRequest");
     // console.log("is this chat from SmartLingo? ", isSmartLingo)
 
     // delete chat
@@ -55,8 +56,23 @@ function PastMessage({messageId, chatId, message}:Props) {
                     </div>
                 )}
 
+                {/* If it is an Inspire Me request */}
+                {isInspireMeRequest && (
+                    <div>
+                        <div className='flex-grow'>
+                            <p className='text-center text-white'>{message.user.name}</p> 
+                            <ArrowDownCircleIcon className='h-10 w-10 mx-auto mt-2 mb-2 text-white animate-bounce flex-grow'/>
+                            {/* <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
+                                <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>
+                                <p className='text-gray-600 text-sm flex-grow'>{message.text}</p>
+                                <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
+                            </div> */}
+                        </div>
+                    </div>
+                )}
+
                 {/* If not, let's just display the conversations */}
-                {!isSmartButtonResponse && !isSmartButtonRequest && (
+                {isUserRequest && isUserRequestResponse && (
                     
                     <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                         <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>

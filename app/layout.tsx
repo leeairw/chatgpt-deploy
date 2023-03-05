@@ -36,7 +36,7 @@ export default async function RootLayout({
               <div className='bg-gradient-to-br from-purple-300 to-yellow-300 flex-1'>{children}</div>
           </div> 
           )} 
-        </SessionProvider>     
+        </SessionProvider>  
       </body>
     </html>
   )

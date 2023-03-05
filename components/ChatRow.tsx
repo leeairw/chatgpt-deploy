@@ -20,8 +20,6 @@ function ChatRow({id}: Props) {
   const router = useRouter();
   const { data: session } = useSession();
   const [smartLingoActive, setSmartLingoActive] = useState(false);
-  
-
 
   const [messages] = useCollection(
         collection(db, "users", session?.user?.email!, "chats", id, "messages")
@@ -39,22 +37,20 @@ function ChatRow({id}: Props) {
         doc(db, "users", session?.user?.email!, "chats", id)
     )
     router.push(`/`); //push to origin url after deleting a chat
-  }
-  
+  };
   
   return (
     <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${smartLingoActive && "bg-gray-700/50"}`}>
         <div className='flex space-x-1 '>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
-            <p className=' hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center'>
+            <p className='hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center md:flex-grow'>
                 {/* Pull the first 5 words of the text, or just say 'New Chat' */}
                 {messages?.docs[messages?.docs.length - 1]?.data().text.split(' ').slice(0, 5).join(" ") || "New Student"}
             </p>
             <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
         </div>
     </Link>
-    
   )
-}
+};
 
-export default ChatRow
+export default ChatRow;

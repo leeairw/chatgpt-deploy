@@ -97,10 +97,11 @@ function Summarize({chatId}: Props) {
 
 
   return (
-    <div onClick={sendButtonRequest} className='border-gray-700 border pageButton'>
+      <div onClick={sendButtonRequest} className='border-gray-700 border pageButton'>
         <PlusIcon className='h-4 w-4'/>
         <p className='truncate'>Summarize</p>
-    </div>
+      </div>
+    
   );
 }
 

@@ -50,7 +50,7 @@ function page() {
                 width={100}
                 height={100}
                 alt="logo"
-            />    
+            />
             <h1 className='text-2xl font-bold'>ChatTime:)</h1>
         </div>
         
@@ -81,7 +81,7 @@ function page() {
                     </div>
                 </div>
                 <div className='space-y-2'>
-                    <p className='infoText'>"Summarize text or explain a concep.t"</p>
+                    <p className='infoText'>"Summarize text or explain a concept."</p>
                     <p className='infoText'>"Answer questions."</p>
                     <p className='infoText'>"Create content in all languages."</p>
                 </div>   
