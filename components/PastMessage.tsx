@@ -25,6 +25,7 @@ function PastMessage({messageId, chatId, message}:Props) {
     const isInspireMeRequest = (message.user.type === "InspireMeRequest");
     // console.log("is this chat from SmartLingo? ", isSmartLingo)
     const [actionChosen, setActionChosen] = useState("");
+    const [prevActionChosen, setPrevActionChosen] = useState("");
 
     // delete chat
     const removeChat = async() => {
@@ -37,10 +38,9 @@ function PastMessage({messageId, chatId, message}:Props) {
     const updateUserAction = async(action: string) => {
         await updateDoc(
             doc(db, 'users', session?.user?.email!, 'chats', chatId, 'messages', messageId), 
-            {
-                "user.user_action": action
-            }
-            )
+            {"user.user_action": action}
+            );
+        setPrevActionChosen(action)
     }
     console.log("Current action chose: ", actionChosen)
 
@@ -70,22 +70,23 @@ function PastMessage({messageId, chatId, message}:Props) {
 
                 {/* If it is an Inspire Me request */}
                 {isInspireMeRequest && (
-                    <div>
-                        <div className='flex-grow'>
-                            <p className='text-center text-white'>{message.user.name}</p> 
-                            <ArrowDownCircleIcon className='h-10 w-10 mx-auto mt-2 mb-2 text-white animate-bounce flex-grow'/>
+                    // <div className={`${ (prevActionChosen==="" || actionChosen==="") && "hidden"} `}>
+                        <div className=' flex-grow'>
+                            <p className='text-center text-white pb-5'>{message.user.name}</p> 
+                            {/* <ArrowDownCircleIcon className='h-10 w-10 mx-auto mt-2 mb-2 text-white animate-bounce flex-grow'/> */}
                             <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                                 {/* <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/> */}
                                 {message.user.user_choices?.map((action:string) => (
                                 <div 
-                                onClick={() => {setActionChosen(action); updateUserAction(action)}} 
-                                className={`inputButton border text-gray-600 text-sm flex-grow ${actionChosen===action && "bg-green-400/70"}`}>
+                                    onClick={() => {setActionChosen(action); updateUserAction(action)}} 
+                                    className={`inputButton border text-gray-600 text-sm flex-grow ${actionChosen===action && "bg-green-400/70"}`}
+                                >
                                     {action}
                                 </div>))
                                 }
                                 <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
                             </div>
-                        </div>
+                        {/* </div> */}
                     </div>
                 )}
 

@@ -1,7 +1,8 @@
+
 'use client'
 
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { addDoc, collection, doc, getDoc, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, orderBy, query, serverTimestamp, updateDoc, where } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -68,12 +69,41 @@ function InspireMe({chatId}: Props) {
       inspireQ_array.forEach((inspireQ) => {
         console.log('inspireQ: ', inspireQ);
         inspireUserWorkflow(inspireQ["Q"], inspireQ["choices"]); 
-        // console.log("current messageId (in Loop): ", messageId)
-        
+        // console.log("current messageId (in Loop): ", messageId) 
       })
-
-      
     }
+
+    // form a question and ask OpenAI
+    const inspireMeAnswersArray: any[] = [];
+    const [inspireMeAnswers] =  useCollection(
+      session &&
+      query(
+          collection(db, "users", session?.user?.email!, "chats", chatId, "messages"),
+          where("user.type", "==", "InspireMeRequest")
+    ));
+  //   inspireMeAnswers?.docs.forEach((inspireMeAnswer) => (
+  //     (message.data().user.name === session?.user?.name || message.data().user.name ==='SmartLingo') && (
+  //     pastMessages.push(message.data().user.name + ' said: " ' + message.data().text.replace(/(\r\n|\n|\r)/gm,"") + '"')
+  //     // console.log(message.data().text)
+  // )));
+  //   // const prompt_inspire_me = 'Please summarize the following context in bullet points: ' + pastMessages.toString()
+  //   console.log("Log the messages String: ", inspireMeAnswers?.docs.toString());
+
+    // // Define the Message input format
+    // const prompt_summarize_formatted: Message = {
+    //     text: prompt_summarize,
+    //     createdAt: serverTimestamp(),
+    //     user: {
+    //         _id: session?.user?.email!,
+    //         name: "Summary", 
+    //         type: "SmartButtonRequest",
+    //         user_choices: [],
+    //         user_action: "",
+    //         avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
+    //     }
+    // }
+
+    // console.log("Log the messages formatted: ", prompt_summarize_formatted);
 
   return (
     <div 
