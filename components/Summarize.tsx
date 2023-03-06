@@ -52,6 +52,8 @@ function Summarize({chatId}: Props) {
             _id: session?.user?.email!,
             name: "Summary", 
             type: "SmartButtonRequest",
+            user_choices: [],
+            user_action: "",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }

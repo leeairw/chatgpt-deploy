@@ -19,6 +19,12 @@
         text-gray-800 hover:text-gray-300 transition-all duration-200 ease-out
     }
 
+    .inputButton {
+        @apply rounded-lg px-5 py-3 text-sm flex items-center
+        justify-center space-x-2 bg-gray-300/70 hover:bg-gray-700/70 cursor-pointer
+        text-gray-800 hover:text-gray-300 transition-all duration-200 ease-out
+    }
+
     .submitButton {
         @apply h-5 w-5 -rotate-45 flex items-center
         justify-center space-x-2 cursor-pointer hover:scale-125

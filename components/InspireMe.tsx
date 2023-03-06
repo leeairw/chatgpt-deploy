@@ -1,10 +1,11 @@
 'use client'
 
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react'
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 
 type Props = {
@@ -29,7 +30,7 @@ function InspireMe({chatId}: Props) {
     const {data:session} = useSession();
 
     // Define a function to store InspireMeRequest records to Firebase
-    const write_machine_question = async(inspireQ: string) => {
+    const inspireUserWorkflow = async(inspireQ: string, choices: string[]) => {
       // Define the Message input format
       const message: Message = {
         text: inspireQ,
@@ -38,39 +39,40 @@ function InspireMe({chatId}: Props) {
             _id: session?.user?.email!,
             name: inspireQ,
             type: "InspireMeRequest",
+            user_choices: choices,
+            user_action: "",
             avatar: "https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png",
         }
-        }
+      }
+
       // Add the new message to firebase
-      await addDoc(
+      const docRef = await addDoc(
           collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
           message
-          )
+      );
+
+      return docRef.id;
     }
 
     // run through the list of questions and add to firebase
     const sendButtonRequest = async() => {
       const inspireQ_array = [
-        "How may I help you today? :)",
-        "What is your student's age group?",
-        "What topics would you like to get inspired on?",
-        "Any grammar you'd like to highlight in your teaching?",
-        "Any Vocabulary you'd like to highlight in your teaching?",
+        {"Q": "How may I help you today? :)", "choices": ["Write a story", "Write a dialogue", "Text input"]},
+        {"Q": "What is your student's age group?", "choices": ["6-11", "12-17", "18-25", "26+"]},
+        {"Q": "What topics would you like to get inspired on?", "choices": ["Text input"]},
+        {"Q": "Any grammar you'd like to highlight in your teaching?", "choices": ["Past tense", "Future tense", "Attribution Clause", "Text input"]},
+        {"Q": "Any Vocabulary you'd like to highlight in your teaching?", "choices": ["Text input"]},
       ]
 
-      const inspireQ_json = {
-        "How may I help you today? :)": "haha",
-        "What is your student's age group?": "haha",
-        "What topics would you like to get inspired on?": "haha",
-        "Any grammar you'd like to highlight in your teaching?": "haha",
-        "Any Vocabulary you'd like to highlight in your teaching?": "haha",
-      }
-
-      // Start Ask the question
+      // Start Ask the question in a loop
       inspireQ_array.forEach((inspireQ) => {
         console.log('inspireQ: ', inspireQ);
-        write_machine_question(inspireQ);
+        inspireUserWorkflow(inspireQ["Q"], inspireQ["choices"]); 
+        // console.log("current messageId (in Loop): ", messageId)
+        
       })
+
+      
     }
 
   return (

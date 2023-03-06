@@ -1,10 +1,10 @@
 'use client'
 
 import { ArrowDownCircleIcon, ChatBubbleLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { collection, deleteDoc, doc, DocumentData, query } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, DocumentData, query, updateDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
-import React from 'react'
+import React, { useState } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 
@@ -24,6 +24,7 @@ function PastMessage({messageId, chatId, message}:Props) {
     const isSmartButtonResponse = (message.user.type === "SmartButtonRequestResponse")
     const isInspireMeRequest = (message.user.type === "InspireMeRequest");
     // console.log("is this chat from SmartLingo? ", isSmartLingo)
+    const [actionChosen, setActionChosen] = useState("");
 
     // delete chat
     const removeChat = async() => {
@@ -31,6 +32,17 @@ function PastMessage({messageId, chatId, message}:Props) {
             doc(db, "users", session?.user?.email!, "chats", chatId, "messages", messageId)
         )
     }
+
+    // Update user_action based on user_choices
+    const updateUserAction = async(action: string) => {
+        await updateDoc(
+            doc(db, 'users', session?.user?.email!, 'chats', chatId, 'messages', messageId), 
+            {
+                "user.user_action": action
+            }
+            )
+    }
+    console.log("Current action chose: ", actionChosen)
 
     console.log("You better not be SmartButtonRequest: ", message.user.type)
 
@@ -62,17 +74,22 @@ function PastMessage({messageId, chatId, message}:Props) {
                         <div className='flex-grow'>
                             <p className='text-center text-white'>{message.user.name}</p> 
                             <ArrowDownCircleIcon className='h-10 w-10 mx-auto mt-2 mb-2 text-white animate-bounce flex-grow'/>
-                            {/* <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/> */}
                             <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                                 {/* <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/> */}
-                                <p className='text-gray-600 text-sm flex-grow'></p> 
+                                {message.user.user_choices?.map((action:string) => (
+                                <div 
+                                onClick={() => {setActionChosen(action); updateUserAction(action)}} 
+                                className={`inputButton border text-gray-600 text-sm flex-grow ${actionChosen===action && "bg-green-400/70"}`}>
+                                    {action}
+                                </div>))
+                                }
                                 <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
                             </div>
                         </div>
                     </div>
                 )}
 
-                {/* If not, let's just display the conversations */}
+                {/* If not, let's just display the User-AI conversations */}
                 {!isSmartButtonResponse && !isInspireMeRequest && (
                     
                     <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>

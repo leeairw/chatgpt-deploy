@@ -44,6 +44,8 @@ function ChatInput({chatId}: Props) {
             _id: session?.user?.email!,
             name: session?.user?.name!,
             type: "UserRequest",
+            user_choices: [],
+            user_action: "",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }
