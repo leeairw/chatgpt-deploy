@@ -37,8 +37,6 @@ export default async function handler(
         _id: 'SmartLingo',
         name: prompt.user.name,
         type: prompt.user.type + "Response",
-        user_choices: [],
-        user_action: "",
         avatar: "https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png",
     }
   }

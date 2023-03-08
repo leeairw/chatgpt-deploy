@@ -5,8 +5,6 @@ interface Message {
         _id: string;
         name: string;
         type: string;
-        user_choices: string[];
-        user_action: string;
         avatar: string;
     };
 };

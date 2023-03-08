@@ -34,8 +34,8 @@ function VocabGrammCheck({chatId}: Props) {
         )
     );
 
-    console.log("Session user's name: ", session?.user?.name)
-    console.log("Check message's user name: ", messages?.docs[4]?.data()?.user?.name)
+    // console.log("Session user's name: ", session?.user?.name)
+    // console.log("Check message's user name: ", messages?.docs[4]?.data()?.user?.name)
 
     messages?.docs.forEach((message) => (
       // make sure that you don't pull "button requested" messages
@@ -45,14 +45,14 @@ function VocabGrammCheck({chatId}: Props) {
       )
         
     ));
-    console.log("Log the messages Array: ", pastMessages);
+    // console.log("Log the messages Array: ", pastMessages);
     
 
     const prompt_VocabGrammCheck = 
       'Please find the grammar or vocabulary mistakes made in the following text, and list them in bullet points.' 
       // + 'After that, please also write down the correct answer right next to each mistake in the original text. \n\n'
       + '"' + pastMessages.toString() + '"'
-    console.log("Log the messages String: ", prompt_VocabGrammCheck);
+    // console.log("Log the messages String: ", prompt_VocabGrammCheck);
 
     // Define the Message input format
     const prompt_prompt_VocabGrammCheck_formatted: Message = {
@@ -62,8 +62,6 @@ function VocabGrammCheck({chatId}: Props) {
             _id: session?.user?.email!,
             name: "VocabGrammCheck",
             type: "SmartButtonRequest",
-            user_choices: [],
-            user_action: "",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }

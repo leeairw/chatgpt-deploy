@@ -38,11 +38,11 @@ function Summarize({chatId}: Props) {
         pastMessages.push(message.data().user.name + ' said: " ' + message.data().text.replace(/(\r\n|\n|\r)/gm,"") + '"')
         // console.log(message.data().text)
     )));
-    console.log("Log the messages Array: ", pastMessages);
+    // console.log("Log the messages Array: ", pastMessages);
     
 
     const prompt_summarize = 'Please summarize the following context in bullet points: ' + pastMessages.toString()
-    console.log("Log the messages String: ", prompt_summarize);
+    // console.log("Log the messages String: ", prompt_summarize);
 
     // Define the Message input format
     const prompt_summarize_formatted: Message = {
@@ -52,13 +52,11 @@ function Summarize({chatId}: Props) {
             _id: session?.user?.email!,
             name: "Summary", 
             type: "SmartButtonRequest",
-            user_choices: [],
-            user_action: "",
             avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
         }
     }
 
-    console.log("Log the messages formatted: ", prompt_summarize_formatted);
+    // console.log("Log the messages formatted: ", prompt_summarize_formatted);
 
   
   // Summarize the array
