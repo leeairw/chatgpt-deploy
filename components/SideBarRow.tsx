@@ -1,7 +1,7 @@
 'use client'
 
 import { ChatBubbleLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { collection, deleteDoc, doc, orderBy, query } from 'firebase/firestore';
+import { collection, deleteDoc, doc, orderBy, query, limit } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -23,7 +23,9 @@ function ChatRow({id}: Props) {
 
   const [messages] = useCollection(
         collection(db, "users", session?.user?.email!, "chats", id, "messages")
+
   );
+
 
   // dynamically check if the pathname has an id - chat being clicked on
   useEffect(() => {
@@ -31,11 +33,27 @@ function ChatRow({id}: Props) {
     setSmartLingoActive(pathname.includes(id));
     }, [pathname]);
 
+  // // query the latest chat
+  // const query_latest_session = () => {
+  //   const [latest_session] = useCollection(
+  //     session &&
+  //     query(
+  //         collection(db, "users", session.user?.email!, "chats"),
+  //         orderBy("createdAt", "desc"),
+  //         limit(1)
+  //     )
+  //   );
+  //   console.log("Latest Session's Chat ID: ", latest_session?.docs[0].id)
+  //   return latest_session;
+  // }
+
   // delete chat
   const removeChat = async() => {
     await deleteDoc(
         doc(db, "users", session?.user?.email!, "chats", id)
     )
+    // const latest_session = query_latest_session()
+
     router.push(`/`); //push to origin url after deleting a chat
   };
   

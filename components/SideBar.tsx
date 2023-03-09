@@ -6,7 +6,7 @@ import NewChat from './NewChat'
 import { collection, orderBy, query } from "firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { db } from '../firebase'
-import ChatRow from './ChatRow'
+import SideBarRow from './SideBarRow'
 import ModelSelection from './ModelSelection'
 
 function SideBar() {
@@ -49,7 +49,7 @@ function SideBar() {
                 {/* Map through the ChatRows */}
                 {chats?.docs.map(chat => (
                     <div className='pt-1'>
-                        <ChatRow key={chat.id} id={chat.id}/>
+                        <SideBarRow key={chat.id} id={chat.id}/>
                     </div>
                 ))} 
             </div>
