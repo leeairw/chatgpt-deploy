@@ -39,7 +39,9 @@ function VocabGrammCheck({chatId}: Props) {
 
     messages?.docs.forEach((message) => (
       // make sure that you don't pull "button requested" messages
-       (message.data().user.name === session?.user?.name || message.data().user.name ==='SmartLingo') && (
+       (message.data().user.name === session?.user?.name || message.data().user.name ==='SmartLingo') 
+       && (message.data().user._id != "SmartLingo")
+       && (
         pastMessages.push(message.data().text.replace(/(\r\n|\n|\r)/gm,""))
         // console.log(message.data().text)
       )
