@@ -90,14 +90,11 @@ function Summarize({chatId}: Props) {
                 id: notification,
             })
         })
-
     };
     
 
-
-
   return (
-      <div onClick={sendButtonRequest} className='border-gray-700 border pageButton'>
+      <div onClick={sendButtonRequest} className={`border-gray-700 border pageButton ${pastMessages.toString().trim() === "" && "hidden"}`}>
         <PlusIcon className='h-4 w-4'/>
         <p className='truncate'>Summarize</p>
       </div>

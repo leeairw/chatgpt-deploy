@@ -25,7 +25,6 @@ function ChatPage({params: {id}}: Props) {
               <InspireMe chatId={id} />
             </div>
         
-        {/* <VocabGrammCheck key={id} id={id}/> */}
     </div>
     
   )

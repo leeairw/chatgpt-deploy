@@ -5,6 +5,9 @@ import '../styles/globals.css';
 import { authOptions } from '../pages/api/auth/[...nextauth]';
 import LogIn from '../components/LogIn';
 import ClientProvider from '../components/ClientProvider';
+import { collection, orderBy, query } from "firebase/firestore"
+import { useCollection } from "react-firebase-hooks/firestore"
+import { db } from '../firebase';
 
 export default async function RootLayout({
   children,
@@ -14,6 +17,17 @@ export default async function RootLayout({
 
   const session = await getServerSession(authOptions);
   console.log(session)
+  // const [chats, loading, error] = useCollection(
+  //   session && 
+  //   query(
+  //       collection(db, "users", session.user?.email!, "chats"),
+  //       orderBy("createdAt", "desc")
+  //   )
+  // );
+
+  // console.log("Chats Collection: ", chats?.docs.length)
+
+  
 
   return (
     <html>
@@ -25,7 +39,7 @@ export default async function RootLayout({
           ) : (
             <div className='flex'>
               {/* Sidebar */}
-              <div className='bg-[#202123] max-w-[10rem] h-screen overflow-y-auto md:min-w-[20rem]'>
+              <div className={`h-screen overflow-y-auto `}>
                 <SideBar />
               </div>
 

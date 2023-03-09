@@ -21,17 +21,19 @@ function SideBar() {
     )
   );
 
-  
-
-  // console.log("Chats Collection: ", chats)
+  // console.log("Chats Collection: ", chats?.docs.length)
   // console.log(chats?.docs.map(chat => (chat.id)))
+  
   return (
-    <div className='p-2 flex flex-col h-screen min-w-[5rem] overflow-y-scroll overflow-x-hidden'>
+    <div className={`bg-[#202123] md:min-w-[10rem] p-2 flex flex-col h-screen min-w-[5rem] overflow-y-scroll overflow-x-hidden ${chats?.docs.length === 0 && "hidden"}`}>
         <div className='flex-1'>
             <div className='space-y-2'>
 
                 {/* NewChat */}
-                <NewChat/>
+                <div className='border-gray-700 border chatRow'>
+                 <NewChat/>
+                </div>
+                
 
                 {/* ModelSelection */}
                 <div className='hidden sm:inline'>

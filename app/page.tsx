@@ -1,7 +1,8 @@
 import React from 'react'
-import { AcademicCapIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroicons/react/24/outline'
 // import { AcademicCapIcon, } from '@heroicons/react/24/solid'
 import Image from "next/image";
+import NewChat from '../components/NewChat'
+
 
 // Notes
 // 1. Set things up
@@ -42,69 +43,21 @@ import Image from "next/image";
 
 function page() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen text-white'>
-        <div className='flex items-center p-5'>
-            <Image 
-                // src="https://links.papareact.com/2i6"
-                src="https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png"
-                width={100}
-                height={100}
-                alt="logo"
-            />
-            <h1 className='text-2xl font-bold'>ChatTime:)</h1>
-        </div>
-        
-        <div className='hidden md:block'>
-
-          <div className='space-y-4 text-center lg:space-y-0 lg:flex lg:space-x-6'>
-
-            {/* Academic Icon */}
-            <div className='flex flex-col'>
-                <div className='flex flex-col items-center justify-center mb-2'>
-                    <div className='flex flex-row space-x-2 items-center'>
-                        <AcademicCapIcon className="h-8 w-8 text-purple-400"/><h2>Examples</h2>
-                    </div>
+    <div className='flex flex-col items-center justify-center h-screen '>
+        <div className='flex flex-col p-5'>
+            <div className='flex flex-row items-center justify-center space-x-2'>
+                <Image 
+                    // src="https://links.papareact.com/2i6"
+                    src="https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png"
+                    width={100}
+                    height={100}
+                    alt="logo"
+                />
+                <div className='border-gray-700 border text-white mt-2 pageButton'>
+                    <NewChat/>
                 </div>
-                <div className='space-y-2'>
-                    <p className='infoText'>"What's the difference b/w 'Ser' and 'Está' in Spanish?"</p>
-                    <p className='infoText'>"How to say I love you in French?"</p>
-                    <p className='infoText'>"Make up a fun dialogue for kids to learn Japanese."</p>
-                </div>   
             </div>
-            
-
-            {/* Capabilities Icon */}
-            <div className='flex flex-col'>
-                <div className='flex flex-col items-center justify-center mb-2'>
-                    <div className='flex flex-row space-x-2 items-center'>
-                        <DeviceTabletIcon className="h-8 w-8 text-purple-400"/><h2>Examples</h2>
-                    </div>
-                </div>
-                <div className='space-y-2'>
-                    <p className='infoText'>"Summarize text or explain a concept."</p>
-                    <p className='infoText'>"Answer questions."</p>
-                    <p className='infoText'>"Create content in all languages."</p>
-                </div>   
-            </div>
-
-            {/* Limitations Icon */}
-            <div className='flex flex-col'>
-                <div className='flex flex-col items-center justify-center mb-2'>
-                    <div className='flex flex-row space-x-2 items-center'>
-                        <ShieldExclamationIcon className="h-8 w-8 text-purple-400"/><h2>Limitations</h2>
-                    </div>
-                </div>
-                <div className='space-y-2'>
-                    <p className='infoText'>"Cannot answer certain racial and political questions."</p>
-                    <p className='infoText'>"Cannot generate images."</p>
-                    <p className='infoText'>"Cannot answer anything happened after 2021."</p>
-                </div>   
-            </div>
-
-
-
-          </div>  
-
+            <h1 className='text-md mt-5 text-white text-lg'>Welcome to Smart Lingo, your langauge teaching copilot :)</h1>
         </div>
     </div>
   )
