@@ -49,15 +49,15 @@ function page() {
                 <Image 
                     // src="https://links.papareact.com/2i6"
                     src="https://www.giantbomb.com/a/uploads/scale_medium/0/6087/2437349-pikachu.png"
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     alt="logo"
                 />
-                <div className='border-gray-700 border text-white mt-2 pageButton'>
+                <div className='border-gray-700 border text-gray-500 mt-2 pageButton text-2xl'>
                     <NewChat/>
                 </div>
             </div>
-            <h1 className='text-md mt-5 text-white text-lg'>Welcome to Smart Lingo, your langauge teaching copilot :)</h1>
+            <h1 className='text-md mt-5 text-gray-500 text-2xl'>Welcome to Smart Lingo, your langauge teaching copilot :)</h1>
         </div>
     </div>
   )
