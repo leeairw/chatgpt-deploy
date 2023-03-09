@@ -12,9 +12,12 @@ import { db } from '../firebase';
 
 type Props = {
     id:string;
+    first_sess_url: string;
+    second_sess_url:string;
+    prev_url:string;
 };
 
-function ChatRow({id}: Props) {
+function SideBarRow({id, first_sess_url,second_sess_url, prev_url}: Props) {
 
   const pathname = usePathname();
   const router = useRouter();
@@ -52,9 +55,14 @@ function ChatRow({id}: Props) {
     await deleteDoc(
         doc(db, "users", session?.user?.email!, "chats", id)
     )
-    // const latest_session = query_latest_session()
+    // deleting first session but there is no second sess yet, then push to "/"
+    "chat/"+id === first_sess_url && second_sess_url === "chat/undefined" ? router.push(`/`) : (null);
+    // deleting first session but there IS a second sess yet, then push to second_sess_url
+    "chat/"+id === first_sess_url && second_sess_url != "chat/undefined" ? router.push(`/`+second_sess_url) : null;
+    // If not deleting the first session, then just return the previous session 
+    "chat/"+id != first_sess_url ? router.push(`/`+prev_url) : null;
 
-    router.push(`/`); //push to origin url after deleting a chat
+    // router.push(`/`+prev_url); //push to origin url after deleting a chat
   };
   
   return (
@@ -71,4 +79,4 @@ function ChatRow({id}: Props) {
   )
 };
 
-export default ChatRow;
+export default SideBarRow;
