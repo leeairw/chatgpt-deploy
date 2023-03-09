@@ -25,8 +25,8 @@ function SideBar() {
   // console.log(chats?.docs.map(chat => (chat.id)))
   
   return (
-    <div className={`bg-[#202123] md:min-w-[10rem] p-2 flex flex-col h-screen min-w-[5rem] overflow-y-scroll overflow-x-hidden ${chats?.docs.length === 0 && "hidden"}`}>
-        <div className='flex-1'>
+    <div className={`bg-[#202123] md:min-w-[10rem] p-2 flex flex-col h-screen min-w-[5rem] overflow-y-scroll overflow-x-scroll ${chats?.docs.length === 0 && "hidden"}`}>
+        <div className='flex-1 overflow-x-scroll'>
             <div className='space-y-2'>
 
                 {/* NewChat */}
@@ -57,7 +57,7 @@ function SideBar() {
                   console.log("Current Sess ID: ", chat.id)
 
                   return (
-                    <div className='pt-1'>
+                    <div className='pt-1 overflow-x-scroll'>
                         <SideBarRow key={chat.id} id={chat.id} first_sess_url={first_sess_url} second_sess_url={second_sess_url} prev_url={prev_url}/>
                     </div>
                   )

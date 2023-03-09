@@ -1,7 +1,7 @@
 'use client'
 
 import { ChatBubbleLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { collection, deleteDoc, doc, orderBy, query, limit } from 'firebase/firestore';
+import { collection, deleteDoc, doc, orderBy, query, limit, getDocs,where } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -52,9 +52,19 @@ function SideBarRow({id, first_sess_url,second_sess_url, prev_url}: Props) {
 
   // delete chat
   const removeChat = async() => {
-    await deleteDoc(
-        doc(db, "users", session?.user?.email!, "chats", id)
-    )
+    
+    // To delete everything under id in firestore, I need to do the following:    
+    const docRef = doc(db, "users", session?.user?.email!, "chats", id);
+    const querySnapshot = await getDocs(query(collection(db, "messages"), where("id", "==", id)));
+    await Promise.all(querySnapshot.docs.map(async (doc) => {
+      await deleteDoc(doc.ref);
+    }));
+    await deleteDoc(docRef);
+    // await deleteDoc(
+    //     doc(db, "users", session?.user?.email!, "chats", id)
+    // )
+
+    
     // deleting first session but there is no second sess yet, then push to "/"
     "chat/"+id === first_sess_url && second_sess_url === "chat/undefined" ? router.push(`/`) : (null);
     // deleting first session but there IS a second sess yet, then push to second_sess_url
@@ -66,10 +76,10 @@ function SideBarRow({id, first_sess_url,second_sess_url, prev_url}: Props) {
   };
   
   return (
-    <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${smartLingoActive && "bg-gray-700/50"}`}>
+    <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${smartLingoActive && "bg-gray-700/50"} overflow-x-scroll`}>
         <div className='flex space-x-1 '>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
-            <p className='hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center md:flex-grow'>
+            <p className='hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center md:flex-grow overflow-hidden'>
                 {/* Pull the first 5 words of the text, or just say 'New Chat' */}
                 {messages?.docs[messages?.docs.length - 1]?.data().text.split(' ').slice(0, 5).join(" ") || "New Student"}
             </p>
