@@ -8,6 +8,7 @@ import React, { FormEvent, KeyboardEvent, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { db } from '../firebase';
 import ModelSelection from './ModelSelection';
+import UploadFile from './UploadFile';
 
 
 type Props = {
@@ -79,9 +80,6 @@ function ChatInput({chatId}: Props) {
             id: notification,
         })
     })
-
-    
-
   };
 
   return (
@@ -103,6 +101,7 @@ function ChatInput({chatId}: Props) {
             >
                 <PaperAirplaneIcon className='submitButton'/>
             </button>
+            <UploadFile chatId={chatId}/>
         </form>
 
         <div className='md:hidden'>

@@ -19,6 +19,12 @@
         text-gray-800 hover:text-gray-300 transition-all duration-200 ease-out
     }
 
+    .uploadButton {
+        @apply rounded-lg px-2 py-1 text-sm flex items-center
+        justify-center hover:bg-gray-700/70 cursor-pointer
+        text-gray-800 hover:text-gray-300 transition-all duration-200 ease-out
+    }
+
     .sampleQuestionButton {
         @apply rounded-lg px-5 py-3 text-sm flex items-center
         justify-center space-x-2 hover:bg-gray-700/70 cursor-pointer

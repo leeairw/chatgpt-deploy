@@ -47,8 +47,8 @@ function PastMessage({messageId, chatId, message}:Props) {
             );
         setPrevActionChosen(action)
     }
-    console.log("Current action chose: ", actionChosen)
-    console.log("You better not be SmartButtonRequest: ", message.user.type)
+    // console.log("Current action chose: ", actionChosen)
+    // console.log("You better not be SmartButtonRequest: ", message.user.type)
 
 
     // Inspire Me
