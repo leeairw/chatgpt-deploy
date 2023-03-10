@@ -25,6 +25,8 @@ function PastMessage({messageId, chatId, message}:Props) {
     const isSmartButtonResponse = (message.user.type === "SmartButtonRequestResponse")
 
     const isInspireMeRequest = (message.user.type === "InspireMeRequest");
+
+    const isQuickNoteRequest = (message.user.type === "UserNote");
     
     const [actionChosen, setActionChosen] = useState("");
     const [prevActionChosen, setPrevActionChosen] = useState("");

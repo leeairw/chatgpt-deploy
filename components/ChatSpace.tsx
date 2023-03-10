@@ -1,15 +1,16 @@
 'use client';
 
-import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowDownCircleIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { collection, orderBy, query,serverTimestamp, addDoc  } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
-import React from 'react'
+import React, {FormEvent, useState} from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 import PastMessage from './PastMessage';
-import { AcademicCapIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroicons/react/24/outline'
+import { AcademicCapIcon, PencilSquareIcon, DeviceTabletIcon, ShieldExclamationIcon} from '@heroicons/react/24/outline'
 import { toast } from 'react-hot-toast';
 import useSWR from "swr";
+import { takeCoverage } from 'v8';
 
 
 type Props = {
@@ -41,6 +42,7 @@ function ChatSpace({chatId}: Props) {
     fallbackData: 'text-davinci-003'
   });
 
+  // define a function that submits sample question to OpenAI
   const sendSampleQuestion = async(sample_question: string) => {
     // Define the sample question input format
     const sample_question_fb: Message = {
@@ -80,10 +82,47 @@ function ChatSpace({chatId}: Props) {
   // console.log('ChatSpace Messages: ', messages)
   // console.log('ChatSpace Message Mapped: ', messages?.docs.map(message => (message.id)))
 
+  // define a function that allow users to take quick notes
+  const sample_note_input = "Today Sean learnt how to talk with past tense in English. He tended to make mistakes in some iregular verbs for past tense."
+  // Define the handleKeyDown and takeQuickNote functions and the relevant types and functions
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      event.currentTarget.form?.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+    }
+  };
+  const [noteInput, setNoteInput] = useState("");
+  const takeQuickNote = async(e: FormEvent<HTMLFormElement>) => {
+    // set up and return if null
+    e.preventDefault()
+    if (!noteInput) return;
+
+    // trim the prompt
+    // const input = prompt.trim();
+    const input_complete = "Note: " + noteInput;
+    setNoteInput("");
+
+    // Define the takeQuickNote input format
+    const quickNote: Message = {
+      text: input_complete,
+      createdAt: serverTimestamp(),
+      user: {
+          _id: session?.user?.email!,
+          name: session?.user?.name!,
+          type: "UserNote",
+          avatar: session?.user?.image! || `https://ui-avatars.com/api/?name=${session?.user?.name}`,
+      }
+    }
+    await addDoc(
+        collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
+        quickNote 
+    )
+  }
+
   return (
     <div className='flex-1 border-gray-700 overflow-y-scroll overflow-x-hidden'>
 
-        {/* Give a notification is there is no chat yet */}
+        {/* Give a notification if there is no chat yet */}
         {messages?.empty && (
           <>
             <p className='mt-10 text-center text-white'>
@@ -110,21 +149,14 @@ function ChatSpace({chatId}: Props) {
                     const handleClick = async () => {
                       await sendSampleQuestion(sample_q);
                     };
-                    
                     return (
                       <div onClick={handleClick} className={`sampleQuestionButton`}>
                         <p className=''>{sample_q}</p>
                       </div>
                     )            
-                  }
-                    
-                   )}
+                  })}
                 </div>   
             </div>
-            
-
-            
-
           </div>  
         </div>
         )}
@@ -135,10 +167,38 @@ function ChatSpace({chatId}: Props) {
             <PastMessage key={message.id} messageId={message.id} 
             chatId={chatId} message={message.data()} />
           </div>
+        )))}
 
-        )
-          
-        ))}
+        {/* Take quick notes */}
+        {<div className='space-y-1 mt-5 text-center justify-center lg:space-y-0 lg:flex lg:space-x-6 text-white'>
+            {/* Note Taking Icon */}
+            <div className='flex flex-row items-center justify-center'>
+                <div className='flex flex-col items-center justify-center'>
+                    <div className='flex flex-row space-x-2 items-center'>
+                        <PencilSquareIcon className="h-8 w-8 text-purple-400"/>
+                    </div>
+                </div>
+                <div className='justify-center items-center'>
+                      {/* Submit text input */}       
+                        <form onSubmit={takeQuickNote} className='p-5 space-x-2 flex justify-center items-center '>
+                            <textarea 
+                                className='textInput resize-none'
+                                value={noteInput}
+                                onChange={(e) => setNoteInput(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                                placeholder="Take a quick note here :)"
+                                rows={1}
+                            />
+                            <button 
+                                disabled={!noteInput || !session}
+                                type="submit"
+                            >
+                                <PaperAirplaneIcon className='submitButton'/>
+                            </button>
+                        </form>
+                </div>
+            </div>
+          </div>}  
     </div>
   )
 }

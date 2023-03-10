@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, KeyboardEvent, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { db } from '../firebase';
 import ModelSelection from './ModelSelection';
@@ -25,10 +25,17 @@ function ChatInput({chatId}: Props) {
     fallbackData: 'text-davinci-001'
   })
   
-
-  const sendInput = async(e: FormEvent<HTMLFormElement>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      event.currentTarget.form?.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+    }
+  };
+  // Define the handleSubmit function and the relevant types and functions
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     // set up and return if null
     e.preventDefault()
+
     if (!prompt) return;
 
     // trim the prompt
@@ -73,18 +80,21 @@ function ChatInput({chatId}: Props) {
         })
     })
 
+    
+
   };
 
   return (
-    <div className='bg-transparent text-gray-400 rounded-lg text-sm focus:outline-none'>
+    <div className=' bg-transparent text-gray-400 rounded-lg text-sm focus:outline-none'>
         {/* Submit text input */}
-        <form onSubmit={sendInput} className='p-5 space-x-2 flex'>
-            <input 
-                className='textInput'
+        <form onSubmit={handleSubmit} className='p-5 space-x-2 flex'>
+            <textarea 
+                className='textInput resize-none'
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                type="text"
+                onKeyDown={handleKeyDown}
                 placeholder="Type in your language input here :)"
+                rows={1}
             />
 
             <button 
