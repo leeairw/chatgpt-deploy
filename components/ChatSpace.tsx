@@ -34,8 +34,6 @@ function ChatSpace({chatId}: Props) {
     "What's the difference b/w 'Ser' and 'Está' in Spanish?",
     "How to say I love you in French?",
     "Make up a fun dialogue for kids to learn Japanese.",
-    "Summarize text or explain a concept.",
-    "Create content in all languages."
   ]
 
   // set the model for sample question
@@ -60,8 +58,7 @@ function ChatSpace({chatId}: Props) {
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
         sample_question_fb 
     )
-
-    console.log("Current sample question: ", sample_question)
+    // console.log("Current sample question: ", sample_question)
 
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
@@ -80,8 +77,6 @@ function ChatSpace({chatId}: Props) {
         })
     })
   };
-
-  
   // console.log('ChatSpace Messages: ', messages)
   // console.log('ChatSpace Message Mapped: ', messages?.docs.map(message => (message.id)))
 
@@ -99,7 +94,7 @@ function ChatSpace({chatId}: Props) {
         )}
 
         {messages?.empty && (
-          <div className='hidden md:block'>
+          <div className=''>
           <div className='space-y-4 text-center justify-center lg:space-y-0 lg:flex lg:space-x-6 text-white'>
 
             {/* Academic Icon */}
@@ -109,9 +104,9 @@ function ChatSpace({chatId}: Props) {
                         <AcademicCapIcon className="h-8 w-8 text-purple-400"/><h2>Examples</h2>
                     </div>
                 </div>
-                <div className='space-y-2 '>
+                <div className='space-y-2 mt-2'>
                    {sample_questions.map((sample_q) => {
-                    console.log("Current sample_q: ", sample_q)
+                    // console.log("Current sample_q: ", sample_q)
                     const handleClick = async () => {
                       await sendSampleQuestion(sample_q);
                     };
@@ -128,19 +123,8 @@ function ChatSpace({chatId}: Props) {
             </div>
             
 
-            {/* Limitations Icon */}
-            {/* <div className='flex flex-col items-center justify-center'>
-                <div className='flex flex-col items-center justify-center mb-2'>
-                    <div className='flex flex-row space-x-2 items-center'>
-                        <ShieldExclamationIcon className="h-8 w-8 text-purple-400"/><h2>Limitations</h2>
-                    </div>
-                </div>
-                <div className='space-y-2'>
-                    <p className='infoText'>"Cannot answer certain racial and political questions."</p>
-                    <p className='infoText'>"Cannot generate images."</p>
-                    <p className='infoText'>"Cannot answer anything happened after 2021."</p>
-                </div>    */}
-            {/* </div> */}
+            
+
           </div>  
         </div>
         )}
@@ -160,3 +144,33 @@ function ChatSpace({chatId}: Props) {
 }
 
 export default ChatSpace
+
+
+
+{/* Capabilities Icon */}
+{/* <div className='flex flex-col items-center justify-center'>
+<div className='flex flex-col items-center justify-center mb-2'>
+    <div className='flex flex-row space-x-2 items-center'>
+        <DeviceTabletIcon className="h-8 w-8 text-purple-400"/><h2>Examples</h2>
+    </div>
+</div>
+<div className='space-y-2'>
+    <p className='infoText'>"Summarize text or explain a concept."</p>
+    <p className='infoText'>"Answer questions."</p>
+    <p className='infoText'>"Create content in all languages."</p>
+</div>   
+</div> */}
+
+{/* Limitations Icon */}
+{/* <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center mb-2'>
+        <div className='flex flex-row space-x-2 items-center'>
+            <ShieldExclamationIcon className="h-8 w-8 text-purple-400"/><h2>Limitations</h2>
+        </div>
+    </div>
+    <div className='space-y-2'>
+        <p className='infoText'>"Cannot answer certain racial and political questions."</p>
+        <p className='infoText'>"Cannot generate images."</p>
+        <p className='infoText'>"Cannot answer anything happened after 2021."</p>
+    </div>    */}
+{/* </div> */}

@@ -20,7 +20,7 @@ const queryGPT = async (prompt: string, chatId:string, model: string) => {
     const res = await openai.createCompletion({
         model: model,
         prompt: prompt,
-        temperature: 0.2, // wanna be more creative (0.9) or more logical (0.1)
+        temperature: 0.9, // wanna be more creative (0.9) or more logical (0.1)
         max_tokens: 1000,
         top_p: 1,
         frequency_penalty: 0,
