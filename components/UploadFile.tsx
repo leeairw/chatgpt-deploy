@@ -1,7 +1,10 @@
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { db } from '../firebase';
+import useSWR from "swr";
+
 
 type Props = {
     chatId: string;
@@ -10,7 +13,9 @@ type Props = {
 
 function UploadButton({chatId}: Props) {
   const {data:session} = useSession();
-
+  const { data: model, mutate: setModel } = useSWR('model', {
+    fallbackData: 'text-davinci-003'
+  });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState(false);
 //   const [textInput, setTextInput] = useState("")
@@ -31,7 +36,7 @@ function UploadButton({chatId}: Props) {
       const text = e.target?.result as string;
       console.log(text); // logs the contents of the file as text
 
-      const textUploaded = "Essay uploaded: "+text
+      const textUploaded = "Please assess the file below, give me a brief summary about what it is and also let me know if you see any vocabulary or grammar mistakes. Thank you! "+text
       // Define the Message input format
         const message: Message = {
             text: textUploaded,
@@ -48,7 +53,24 @@ function UploadButton({chatId}: Props) {
      await addDoc(
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
         message 
-    )
+    );
+
+    // Toast notification to say Loading
+    const notification = toast.loading('Smart Lingo is thinking...')
+    await fetch('/api/askQuestions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({
+            prompt: message, chatId, model, session
+        }),
+    }).then(() => {
+        // Toast notificaion to say successful!
+        toast.success("Smart Lingo has responded!", {
+            id: notification,
+        })
+    })
 
         
     };

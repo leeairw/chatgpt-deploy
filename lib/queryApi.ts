@@ -22,6 +22,23 @@ const queryGPT = async (prompt: string, chatId:string, model: string) => {
     // set up params for openai responses
     // (model === "gpt-3.5-turbo" || model === "gpt-3.5-turbo-0301") 
 
+    const previousChatArray = [
+        { 
+            role: "system", content: `You are a language teacher assistant. You will be helping me to teach my student well.` 
+        },
+        {
+            role: "user",
+            content: "I am a 6-year old student in Australia, learning Spanish.",
+        },
+        {
+            role: "assistant",
+            content: "Nice to meet you! I am your smart assistant! Ask me any questions!",
+        },
+        { 
+            role: "user", content: prompt 
+        },
+    ]
+
     
 
     if (model != "gpt-3.5-turbo" && model != "gpt-3.5-turbo-0301") 
@@ -50,22 +67,7 @@ const queryGPT = async (prompt: string, chatId:string, model: string) => {
       else {
         const res = await openai.createChatCompletion({
             model: model,
-            messages: [
-                { 
-                    role: "system", content: `You are a language teacher.` 
-                },
-                {
-                    role: "user",
-                    content: "I am a 6-year old student in Australia, learning Spanish.",
-                },
-                {
-                    role: "assistant",
-                    content: "Nice to meet you! I am your smart assistant! Ask me any questions!",
-                },
-                { 
-                    role: "user", content: prompt 
-                },
-            ],
+            messages: previousChatArray,
         })
         .then((res) => {
             // res.data.choices[0].message
@@ -78,11 +80,7 @@ const queryGPT = async (prompt: string, chatId:string, model: string) => {
         )
         console.log("OpenAI Response for ChatGPT models: ", res);
         return res;
-      }
-    
-        
-
-    
+      }    
 }
 
 
