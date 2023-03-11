@@ -11,8 +11,11 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../firebase';
 
 type Props = {
-    chatId: string;
+  chatId: string;
+  chatHistory: { role: string; content: string }[];
+  addChatHistory: (role: string, content: string) => void;
 }
+
 
 
 // Brainstorm
@@ -28,7 +31,7 @@ type Props = {
 // 3. wrap up all answers -> form a question -> push to api/askQuestions.ts -> fetch answer and addDoc to firebase as type "InspireMeResponse"
 
 
-function InspireMe({chatId}: Props) {
+function InspireMe({chatId, chatHistory, addChatHistory}: Props) {
     const {data:session} = useSession();
 
     // run through the list of questions and add to firebase
@@ -48,6 +51,8 @@ function InspireMe({chatId}: Props) {
           collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
           message
       );
+
+      // addChatHistory("user", "Please Inspire Me!")
     }
 
   return (

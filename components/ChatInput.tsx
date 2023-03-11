@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
-import React, { FormEvent, KeyboardEvent, useState } from 'react'
+import React, { FormEvent, KeyboardEvent, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { db } from '../firebase';
 import ModelSelection from './ModelSelection';
@@ -13,9 +13,11 @@ import UploadFile from './UploadFile';
 
 type Props = {
     chatId: string;
+    chatHistory: { role: string; content: string }[];
+    addChatHistory: (role: string, content: string) => void;
 }
 
-function ChatInput({chatId}: Props) {
+function ChatInput({chatId, chatHistory, addChatHistory}: Props) {
 
   const [prompt, setPrompt] = useState("");
   const {data:session} = useSession();
@@ -23,7 +25,7 @@ function ChatInput({chatId}: Props) {
   // useSWR to get model
   // const model = 'text-davinci-003';
   const { data: model} = useSWR("model", {
-    fallbackData: 'text-davinci-001'
+    fallbackData: 'gpt-3.5-turbo'
   })
   
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -62,6 +64,11 @@ function ChatInput({chatId}: Props) {
         message 
     )
 
+    addChatHistory("user", input)
+
+    console.log("Previous ChatHistory: ", ...chatHistory)
+    console.log("Current Input: ", input)
+
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
 
@@ -80,6 +87,10 @@ function ChatInput({chatId}: Props) {
             id: notification,
         })
     })
+   
+    
+    console.log("Latest ChatHistory: ", ...chatHistory)
+    
   };
 
   return (

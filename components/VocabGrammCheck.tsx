@@ -12,10 +12,12 @@ import useSWR from "swr";
 import toast from 'react-hot-toast';
 
 type Props = {
-    chatId: string;
+  chatId: string;
+  chatHistory: { role: string; content: string }[];
+  addChatHistory: (role: string, content: string) => void;
 }
 
-function VocabGrammCheck({chatId}: Props) {
+function VocabGrammCheck({chatId, chatHistory, addChatHistory}: Props) {
   const router = useRouter();
   const { data:session } = useSession();
   const { data: model} = useSWR('model', {
@@ -81,6 +83,8 @@ function VocabGrammCheck({chatId}: Props) {
             collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
             prompt_prompt_VocabGrammCheck_formatted 
         )
+
+        addChatHistory("user", prompt_VocabGrammCheck)
 
         // Toast notification to say Loading
         const notification = toast.loading('Smart Lingo is thinking...')

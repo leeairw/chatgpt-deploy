@@ -15,9 +15,11 @@ import { takeCoverage } from 'v8';
 
 type Props = {
     chatId: string;
+    chatHistory: { role: string; content: string }[];
+    addChatHistory: (role: string, content: string) => void;
 }
 
-function ChatSpace({chatId}: Props) {
+function ChatSpace({chatId, chatHistory, addChatHistory}: Props) {
 
   const { data: session } = useSession();
 
@@ -39,7 +41,7 @@ function ChatSpace({chatId}: Props) {
 
   // set the model for sample question
   const { data: model, mutate: setModel } = useSWR('model', {
-    fallbackData: 'text-davinci-003'
+    fallbackData: 'gpt-3.5-turbo'
   });
 
   // define a function that submits sample question to OpenAI
@@ -61,6 +63,8 @@ function ChatSpace({chatId}: Props) {
         sample_question_fb 
     )
     // console.log("Current sample question: ", sample_question)
+    addChatHistory("user", sample_question)
+    console.log("Latest ChatHistory: ", chatHistory)
 
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
@@ -117,6 +121,8 @@ function ChatSpace({chatId}: Props) {
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
         quickNote 
     )
+    addChatHistory("user", input_complete)
+    console.log("Latest ChatHistory: ", chatHistory)
   }
 
   return (

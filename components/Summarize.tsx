@@ -12,10 +12,12 @@ import useSWR from "swr";
 import toast from 'react-hot-toast';
 
 type Props = {
-    chatId: string;
+  chatId: string;
+  chatHistory: { role: string; content: string }[];
+  addChatHistory: (role: string, content: string) => void;
 }
 
-function Summarize({chatId}: Props) {
+function Summarize({chatId, chatHistory, addChatHistory}: Props) {
   const router = useRouter();
   const { data:session } = useSession();
   const { data: model, mutate: setModel } = useSWR('model', {
@@ -73,6 +75,8 @@ function Summarize({chatId}: Props) {
             collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
             prompt_summarize_formatted 
         )
+
+        addChatHistory("user", prompt_summarize)
 
         // Toast notification to say Loading
         const notification = toast.loading('Smart Lingo is thinking...')

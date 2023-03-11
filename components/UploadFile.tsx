@@ -14,7 +14,7 @@ type Props = {
 function UploadButton({chatId}: Props) {
   const {data:session} = useSession();
   const { data: model, mutate: setModel } = useSWR('model', {
-    fallbackData: 'text-davinci-003'
+    fallbackData: 'gpt-3.5-turbo'
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState(false);

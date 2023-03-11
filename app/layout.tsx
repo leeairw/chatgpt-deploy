@@ -9,6 +9,7 @@ import { collection, orderBy, query } from "firebase/firestore"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { db } from '../firebase';
 
+
 export default async function RootLayout({
   children,
 }: {
@@ -17,17 +18,6 @@ export default async function RootLayout({
 
   const session = await getServerSession(authOptions);
   console.log(session)
-  // const [chats, loading, error] = useCollection(
-  //   session && 
-  //   query(
-  //       collection(db, "users", session.user?.email!, "chats"),
-  //       orderBy("createdAt", "desc")
-  //   )
-  // );
-
-  // console.log("Chats Collection: ", chats?.docs.length)
-
-  
 
   return (
     <html>
