@@ -144,13 +144,13 @@ function ChatSpace({chatId}: Props) {
                     </div>
                 </div>
                 <div className='space-y-2 mt-2'>
-                   {sample_questions.map((sample_q) => {
+                   {sample_questions.map((sample_q, ind) => {
                     // console.log("Current sample_q: ", sample_q)
                     const handleClick = async () => {
                       await sendSampleQuestion(sample_q);
                     };
                     return (
-                      <div onClick={handleClick} className={`sampleQuestionButton`}>
+                      <div key={ind} onClick={handleClick} className={`sampleQuestionButton`}>
                         <p className=''>{sample_q}</p>
                       </div>
                     )            
@@ -162,9 +162,9 @@ function ChatSpace({chatId}: Props) {
         )}
 
         {/* List all past messages under one chatId */}
-        {messages?.docs.map(message => ( message.data().user.type != "SmartButtonRequest" && (
-          <div className="mt-2" >
-            <PastMessage key={message.id} messageId={message.id} 
+        {messages?.docs?.map((message, ind) => (message.data().user.type != "SmartButtonRequest" && (
+          <div key={ind + message.id} className="mt-2" >
+            <PastMessage  messageId={message.id} 
             chatId={chatId} message={message.data()} />
           </div>
         )))}

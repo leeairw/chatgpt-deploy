@@ -51,13 +51,13 @@ function SideBar() {
                   const first_sess_url = "chat/"+chats?.docs[0]?.id
                   const second_sess_url = "chat/"+chats?.docs[1]?.id
                   const prev_url = (ind_iter>=1) ? "chat/"+chats?.docs[ind_iter-1]?.id : ""
-                  console.log("First Sess ID: ", first_sess_url)
-                  console.log("Second Sess ID: ", second_sess_url)
-                  console.log("Previous Sess ID: ", prev_url)
-                  console.log("Current Sess ID: ", chat.id)
+                  // console.log("First Sess ID: ", first_sess_url)
+                  // console.log("Second Sess ID: ", second_sess_url)
+                  // console.log("Previous Sess ID: ", prev_url)
+                  // console.log("Current Sess ID: ", chat.id)
 
                   return (
-                    <div className='pt-1 overflow-x-scroll'>
+                    <div key={ind_iter} className='pt-1 overflow-x-scroll'>
                         <SideBarRow key={chat.id} id={chat.id} first_sess_url={first_sess_url} second_sess_url={second_sess_url} prev_url={prev_url}/>
                     </div>
                   )
