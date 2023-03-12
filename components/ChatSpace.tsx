@@ -62,7 +62,7 @@ function ChatSpace({chatId, chatHistory, addChatHistory}: Props) {
         collection(db, 'users', session?.user?.email!, 'chats', chatId, 'messages'),
         sample_question_fb 
     )
-    // console.log("Current sample question: ", sample_question)
+    console.log("Current sample question: ", sample_question)
     addChatHistory("user", sample_question)
     console.log("Latest ChatHistory: ", chatHistory)
 
@@ -80,15 +80,16 @@ function ChatSpace({chatId, chatHistory, addChatHistory}: Props) {
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
     const res_text = await res_openAI.json()
-    console.log("Response: ", res_text)
+    console.log("Response: ", res_text.answer)
     if (res_text && res_text.answer) {
         // Toast notificaion to say successful!
         toast.success("Smart Lingo has responded!", {
             id: notification,
         })
     }
-    // addChatHistory("assistant", res_text)
-    console.log("Latest ChatHistory: ", ...chatHistory)
+    console.log("AI response text: ", chatHistory)
+    addChatHistory("assistant", res_text.answer || "no response!")
+    console.log("Latest ChatHistory with assistant response: ", chatHistory)
 
   };
   // console.log('ChatSpace Messages: ', messages)
@@ -146,6 +147,7 @@ function ChatSpace({chatId, chatHistory, addChatHistory}: Props) {
           </>
         )}
 
+        {/* Show sample questions if there were no chats */}
         {messages?.empty && (
           <div className=''>
           <div className='space-y-4 text-center justify-center lg:space-y-0 lg:flex lg:space-x-6 text-white'>

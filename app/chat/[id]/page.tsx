@@ -28,7 +28,7 @@ type Props = {
 function ChatPage({params: {id}}: Props) {
   const [chatHistory, setchatHistory] = useState<{ role: string; content: string }[]>([]);
   const addChatHistory = (role: string, content: string) => {
-    setchatHistory([...chatHistory, { role, content }]);
+    setchatHistory(prevHistory => [...prevHistory, { role, content }]);
   };
 
   return (

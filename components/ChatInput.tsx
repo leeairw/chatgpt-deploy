@@ -38,7 +38,6 @@ function ChatInput({chatId, chatHistory, addChatHistory}: Props) {
   const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     // set up and return if null
     e.preventDefault()
-
     if (!prompt) return;
 
     // trim the prompt
@@ -64,14 +63,15 @@ function ChatInput({chatId, chatHistory, addChatHistory}: Props) {
         message 
     )
 
-    addChatHistory("user", input)
-
+    
     console.log("Previous ChatHistory: ", ...chatHistory)
-    console.log("Current Input: ", input)
+    console.log("Current User Input: ", input)
+    addChatHistory("user", input || "No Question sent yet")
+    
 
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
- 
+
     // fetch and send success notification
     const res_openAI = await fetch('/api/askQuestions', {
         method: 'POST',
@@ -82,23 +82,18 @@ function ChatInput({chatId, chatHistory, addChatHistory}: Props) {
             prompt: message, chatId, model, session, chatHistory
         }),
     })
-    // .then(() => {
-    //     // Toast notificaion to say successful!
-    //     toast.success("Smart Lingo has responded!", {
-    //         id: notification,
-    //     })
-    // })
 
     const res_text = await res_openAI.json()
-    console.log("Response: ", res_text)
+    console.log("Response from AI: ", res_text.answer)
     if (res_text && res_text.answer) {
         // Toast notificaion to say successful!
         toast.success("Smart Lingo has responded!", {
             id: notification,
         })
     }
-    // addChatHistory("assistant", res_text)
-    console.log("Latest ChatHistory: ", ...chatHistory)
+    addChatHistory("assistant", res_text.answer || "no response!")
+    console.log("Latest ChatHistory with assistant response: ", ...chatHistory)
+
   };
 
   return (
