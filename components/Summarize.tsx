@@ -99,7 +99,7 @@ function Summarize({chatId, chatHistory, addChatHistory}: Props) {
               id: notification,
           })
       }
-      addChatHistory("assistant", res_text)
+      // addChatHistory("assistant", res_text)
       console.log("Latest ChatHistory: ", ...chatHistory)
     };
     
