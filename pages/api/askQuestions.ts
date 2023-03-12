@@ -3,6 +3,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { adminDb } from '../../firebaseAdmin';
 import queryGPT from '../../lib/queryApi'
 import admin from "firebase-admin";
+// import { ChatContext, ChatContextType } from '../../components/ChatContext';
+// import { useContext } from 'react';
 
 type Data = {
   answer: string;
@@ -12,7 +14,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { prompt, chatId, model, session } = req.body
+  const { prompt, chatId, model, session, chatHistory } = req.body
   const prompt_text = prompt.text
 
   if (!prompt_text) {
@@ -26,8 +28,9 @@ export default async function handler(
   }
 
   // ChatGPT Query: Talk to ChatGPT
-  const response = await queryGPT(prompt_text, chatId, model);
+  const response = await queryGPT(prompt_text, chatId, model, chatHistory);
   console.log("Response from queryGPT: ", response)
+  // addChatHistory("assistant", response)
 
   const message: Message = {
     text: response || "Smart Lingo was unable to respond to that :(",
@@ -50,4 +53,6 @@ export default async function handler(
   .add(message);
 
   res.status(200).json({ answer: message.text });
+
+  return message.text;
 }

@@ -71,26 +71,34 @@ function ChatInput({chatId, chatHistory, addChatHistory}: Props) {
 
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
-
+ 
     // fetch and send success notification
-    await fetch('/api/askQuestions', {
+    const res_openAI = await fetch('/api/askQuestions', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
-            prompt: message, chatId, model, session
+            prompt: message, chatId, model, session, chatHistory
         }),
-    }).then(() => {
+    })
+    // .then(() => {
+    //     // Toast notificaion to say successful!
+    //     toast.success("Smart Lingo has responded!", {
+    //         id: notification,
+    //     })
+    // })
+
+    const res_text = await res_openAI.json()
+    console.log("Response: ", res_text)
+    if (res_text && res_text.answer) {
         // Toast notificaion to say successful!
         toast.success("Smart Lingo has responded!", {
             id: notification,
         })
-    })
-   
-    
+    }
+    addChatHistory("assistant", res_text)
     console.log("Latest ChatHistory: ", ...chatHistory)
-    
   };
 
   return (

@@ -66,22 +66,30 @@ function ChatSpace({chatId, chatHistory, addChatHistory}: Props) {
     addChatHistory("user", sample_question)
     console.log("Latest ChatHistory: ", chatHistory)
 
+    // fetch and send success notification
+    const res_openAI = await fetch('/api/askQuestions', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({
+          prompt: sample_question_fb, chatId, model, session, chatHistory
+      }),
+    })
+
     // Toast notification to say Loading
     const notification = toast.loading('Smart Lingo is thinking...')
-    await fetch('/api/askQuestions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify({
-            prompt: sample_question_fb, chatId, model, session
-        }),
-    }).then(() => {
+    const res_text = await res_openAI.json()
+    console.log("Response: ", res_text)
+    if (res_text && res_text.answer) {
         // Toast notificaion to say successful!
         toast.success("Smart Lingo has responded!", {
             id: notification,
         })
-    })
+    }
+    addChatHistory("assistant", res_text)
+    console.log("Latest ChatHistory: ", ...chatHistory)
+
   };
   // console.log('ChatSpace Messages: ', messages)
   // console.log('ChatSpace Message Mapped: ', messages?.docs.map(message => (message.id)))

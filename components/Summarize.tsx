@@ -78,22 +78,29 @@ function Summarize({chatId, chatHistory, addChatHistory}: Props) {
 
         addChatHistory("user", prompt_summarize)
 
-        // Toast notification to say Loading
-        const notification = toast.loading('Smart Lingo is thinking...')
-        await fetch('/api/askQuestions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-            },
-            body: JSON.stringify({
-                prompt: prompt_summarize_formatted, chatId, model, session
-            }),
-        }).then(() => {
-            // Toast notificaion to say successful!
-            toast.success("Smart Lingo has responded!", {
-                id: notification,
-            })
-        })
+      // fetch and send success notification
+      const res_openAI = await fetch('/api/askQuestions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({
+            prompt: prompt_summarize_formatted, chatId, model, session, chatHistory
+        }),
+      })
+
+      // Toast notification to say Loading
+      const notification = toast.loading('Smart Lingo is thinking...')
+      const res_text = await res_openAI.json()
+      console.log("Response: ", res_text)
+      if (res_text && res_text.answer) {
+          // Toast notificaion to say successful!
+          toast.success("Smart Lingo has responded!", {
+              id: notification,
+          })
+      }
+      addChatHistory("assistant", res_text)
+      console.log("Latest ChatHistory: ", ...chatHistory)
     };
     
 

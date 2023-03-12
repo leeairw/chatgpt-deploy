@@ -6,7 +6,7 @@ import VocabGrammCheck from '../../../components/VocabGrammCheck'
 import ChatSpace from '../../../components/ChatSpace';
 import Summarize from '../../../components/Summarize';
 import InspireMe from '../../../components/InspireMe';
-import { ChatContext, ChatContextType } from '../../../components/chatContext';
+import { ChatContext, ChatContextType } from '../../../components/ChatContext';
 
 
 // interface ChatContextType {
@@ -31,11 +31,6 @@ function ChatPage({params: {id}}: Props) {
     setchatHistory([...chatHistory, { role, content }]);
   };
 
-  // const addMessages = (newMessages: {role: string, content: string}[]) => {
-  //   setMessages(prevMessages => [...prevMessages, ...newMessages]);
-  // }
-  
-  console.log("Props on ChatPage with ID", id);
   return (
     <ChatContext.Provider value={{ chatHistory, addChatHistory }}>
       <div className='flex flex-col p-5 space-y-2 h-screen'>
@@ -48,8 +43,6 @@ function ChatPage({params: {id}}: Props) {
             </div>
       </div>
     </ChatContext.Provider>
-    
-    
   )
 }
 
