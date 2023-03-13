@@ -35,6 +35,8 @@ function PastMessage({messageId, chatId, message}:Props) {
         )
     }
 
+    console.log("AI Response in Past Message: ", message.text)
+
     return (
       
         <div className={`text-grey py-5 space-x-5
@@ -50,7 +52,14 @@ function PastMessage({messageId, chatId, message}:Props) {
                             <ArrowDownCircleIcon className='h-10 w-10 mx-auto mt-2 mb-2 text-white animate-bounce flex-grow'/>
                             <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
                                 <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>
-                                <p className='text-gray-600 text-sm flex-grow'>{message.text}</p>
+                                {/* <p className='text-gray-600 text-sm flex-grow'>{message.text}</p> */}
+                                <div className='flex flex-col'>
+                                    {message.text.split("\n").map((line:string, index:number) => (
+                                        <div key={index} className="mb-2">
+                                            <p className='text-gray-600 text-sm flex-grow'>{line}</p>
+                                        </div>
+                                    ))}
+                                </div>
                                 <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
                             </div>
                         </div>
@@ -63,9 +72,18 @@ function PastMessage({messageId, chatId, message}:Props) {
                 {/* If not, let's just display the User-AI conversations */}
                 {!isSmartButtonResponse && !isInspireMeRequest && (
                     
-                    <div className='flex space-x-2 px-2 max-w-2xl mx-auto'>
+                    <div className='flex flex-row space-x-2 px-2 max-w-2xl mx-auto'>
                         <img src={message.user.avatar} alt="" className='h-8 w-8 rounded-lg'/>
-                        <p className='text-gray-600 text-sm flex-grow'>{message.text}</p>
+
+                        {/* <p className='text-gray-600 text-sm flex-grow'>{message.text}</p> */}
+                        <div className='flex flex-col'>
+                            {message.text.split("\n").map((line:string, index:number) => (
+                                <div key={index} className="mb-2">
+                                    <p className='text-gray-600 text-sm flex-grow'>{line}</p>
+                                </div>
+                            ))}
+                        </div>
+                        
                         <TrashIcon onClick={removeChat} className='shrink-0 h-5 w-5 text-gray-700 hover:text-red-700'/>
                     </div>
                 )}

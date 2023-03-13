@@ -75,9 +75,7 @@ function UploadButton({chatId}: Props) {
         
     };
      
-    reader.readAsText(selectedFile);
-
-    
+    reader.readAsText(selectedFile); 
   }
 
   return (
