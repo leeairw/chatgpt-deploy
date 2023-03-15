@@ -77,7 +77,7 @@ function SideBarRow({id, first_sess_url,second_sess_url, prev_url}: Props) {
   
   return (
     <Link href={`chat/${id}`} className={`chatRow justify-center border-gray-700 border ${smartLingoActive && "bg-gray-700/50"} overflow-x-scroll`}>
-        <div className='flex space-x-1 '>   
+        <div className='flex space-x-1 flex-grow'>   
             <ChatBubbleLeftIcon className='h-5 w-5 text-white'/>
             <p className='hidden md:truncate md:text-clip md:block md:inline-text md:text-white md:justify-center md:text-center md:flex-grow overflow-hidden'>
                 {/* Pull the first 5 words of the text, or just say 'New Chat' */}
